@@ -1,0 +1,200 @@
+@font-face {
+ font-family: 'ChunkFiveRegular';
+ src: url('fonts/Chunkfive.eot');
+ src: local('ChunkFive'), local('ChunkFive'), url('fonts/Chunkfive.woff') format('woff'), url('fonts/Chunkfive.ttf') format('truetype'), url('fonts/Chunkfive.svg#ChunkFive') format('svg');
+}
+ @font-face {
+ font-family: 'SansationRegular';
+ src: url('fonts/Sansation_Regular.eot');
+ src: local('Sansation'), local('Sansation'), url('fonts/Sansation_Regular.woff') format('woff'), url('fonts/Sansation_Regular.ttf') format('truetype'), url('fonts/Sansation_Regular.svg#Sansation') format('svg');
+}
+ @font-face {
+ font-family: 'SansationLight';
+ src: url('Sansation_Light.eot');
+ src: local('Sansation'), local('Sansation-Light'), url('fonts/Sansation_Light.woff') format('woff'), url('fonts/ansation_Light.ttf') format('truetype'), url('fonts/Sansation_Light.svg#Sansation-Light') format('svg');
+}
+ @font-face {
+ font-family: 'SansationBold';
+ src: url('Sansation_Bold.eot');
+ src: local('Sansation'), local('Sansation-Bold'), url('fonts/Sansation_Bold.woff') format('woff'), url('fonts/Sansation_Bold.ttf') format('truetype'), url('fonts/Sansation_Bold.svg#Sansation-Bold') format('svg');
+}
+
+body {
+    background: #BD3816;
+    margin:0;
+    padding:0;
+    font-family: SansationLight;
+}
+
+li {
+    list-style:none;
+}
+
+#wrapper {
+    width: 980px;
+    height: 700px;
+    margin: 20px auto;
+    border-radius: 5px;
+}
+    #header {
+        height: 120px;
+        margin:0 0 5px 0;
+        -webkit-border-radius: 5px 5px 20px 20px;
+        padding: 25px;
+        border-bottom: 5px solid #666;
+        background: -webkit-gradient(linear, center top, center bottom, from(#666), to(white));
+        box-shadow: 1px 1px 3px rgba(0,0,0,.5), -1px -1px 3px rgba(0,0,0,.5);
+    }
+    
+                
+    
+    #content {
+        min-height: 450px;
+        margin:0 0 10px 0;
+        padding:0;
+        
+        z-index:0;
+    }
+        #acc-area {
+            width: 289px;
+            height: 350px;
+            float:left;
+            margin:0;
+            padding: 50px 0;
+            background: -webkit-gradient(linear, center top, center bottom, from(#fff), to(#eee));
+            border-radius: 10px;
+            box-shadow: 1px 1px 3px rgba(0,0,0,.5), -1px -1px 3px rgba(0,0,0,.5);
+        }
+        
+        #news {
+            width: 649px;
+            height: 410px;
+            float:right;
+            padding:20px;
+            background: -webkit-gradient(linear, center top, center bottom, from(#fff), to(#eee));
+            border-radius: 10px;
+            margin-left: 2px;
+            box-shadow: 1px 1px 3px rgba(0,0,0,.5), -1px -1px 3px rgba(0,0,0,.5);
+        }
+            #news h2 {
+                margin:0 0 10px 0;
+                
+            }
+            #artikel-news {
+                background: #eee;
+                padding: 0 10px 10px 10px;
+                margin-bottom: 50px;
+                position:relative;
+                border-radius: 5px;
+                box-shadow: 2px 2px 3px rgba(0,0,0,.5);
+            }
+                #artikel-news h3 {
+                    position:absolute;
+                    margin:0;
+                    background: yellow;
+                    padding:5px 10px;
+                    -webkit-transform: rotate(45deg);
+                    right: -30px;
+                    top: -5px;
+                    z-index: 5;
+                    opacity: 1;
+                    font-size: .8em;
+                    color: #333;;
+                    border: 1px dashed #000;
+                }
+            
+                #img-news {
+                    width: 100px;
+                    float: left;
+                    margin: 10px 0 10px 0;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 2px rgba(0,0,0,.5);
+                }
+                #artikel-news:hover >img {
+                    -webkit-transform: scale(1.1);
+                    
+                    box-shadow: 2px 2px 2px rgba(0,0,0,.5);
+                }
+                
+                #info-news {
+                    position:relative;
+                    padding-left: 125px;
+                    padding-top: 10px;
+                    
+                }
+                #info-news h5{
+                    margin:0;
+                    background: #BD3816;
+                    padding: 5px 10px;
+                    letter-spacing: 1px;
+                    border-radius: 4px;
+                    color: #fff;
+                }
+                #info-news p {
+                    margin:0;
+                }
+                
+                #artikel-news footer {
+                    clear:both;
+                    text-align:center;
+                }
+                #artikel-news a {
+                    text-decoration: none;
+                    background: #D4D0C8;
+                    padding: 3px 5px;
+                    border-radius: 0 10px 10px 0;
+                    color: #000;
+                    font-family: SansationRegular;
+                    font-size: .8em;
+                    box-shadow: 1px 1px 2px rgba(0,0,0,.5);
+                }
+                
+                #artikel-news a:hover {
+                    background: #BD3816;
+                    color: #fff;
+                }
+        
+        #artikel-resep {
+            background: #eee;
+            margin:0 0 10px 0;
+            padding:20px;
+        }
+
+        .konten {
+            background: #eee;
+            margin:0 0 10px 0;
+            padding:20px;
+        }
+
+        .konten h3 {
+            background: #BD3816;
+            text-align: center;
+            border-radius: 10px;
+        }
+            
+             #judul a{
+                 text-decoration: none;
+                 background: rgba(189,56,22,.5);;
+                 color: #eee;
+                 padding: 10px 20px;
+                 border-radius: 10px;
+                 border: 1px solid #bd3816;
+             }
+             
+             #judul a:hover {
+                 background: #bd3816;
+             }
+    
+    #footer {
+        height: 100px;
+        background: -webkit-gradient(linear, center top, center bottom, from(#fff), to(#666));
+        margin:0;
+        border-radius: 10px;
+        box-shadow: 1px 1px 3px rgba(0,0,0,.5), -1px -1px 3px rgba(0,0,0,.5);
+    }
+
+.page-title {
+    background: #BD3816;
+    text-align: center;
+    border-radius: 10px;
+}  

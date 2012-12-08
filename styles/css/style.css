@@ -1,0 +1,92 @@
+@font-face {
+ font-family: 'ChunkFiveRegular';
+ src: url('fonts/Chunkfive.eot');
+ src: local('ChunkFive'), local('ChunkFive'), url('fonts/Chunkfive.woff') format('woff'), url('fonts/Chunkfive.ttf') format('truetype'), url('fonts/Chunkfive.svg#ChunkFive') format('svg');
+}
+ @font-face {
+ font-family: 'SansationRegular';
+ src: url('fonts/Sansation_Regular.eot');
+ src: local('Sansation'), local('Sansation'), url('fonts/Sansation_Regular.woff') format('woff'), url('fonts/Sansation_Regular.ttf') format('truetype'), url('fonts/Sansation_Regular.svg#Sansation') format('svg');
+}
+ @font-face {
+ font-family: 'SansationLight';
+ src: url('Sansation_Light.eot');
+ src: local('Sansation'), local('Sansation-Light'), url('fonts/Sansation_Light.woff') format('woff'), url('fonts/ansation_Light.ttf') format('truetype'), url('fonts/Sansation_Light.svg#Sansation-Light') format('svg');
+}
+ @font-face {
+ font-family: 'SansationBold';
+ src: url('Sansation_Bold.eot');
+ src: local('Sansation'), local('Sansation-Bold'), url('fonts/Sansation_Bold.woff') format('woff'), url('fonts/Sansation_Bold.ttf') format('truetype'), url('fonts/Sansation_Bold.svg#Sansation-Bold') format('svg');
+}
+
+body {
+    background: #BD3816;
+    margin:0;
+    padding:0;
+    font-family: SansationLight;
+}
+
+li {
+    list-style:none;
+}
+
+#wrapper {
+    width: 980px;
+    height: 700px;
+    margin: 20px auto;
+    border-radius: 5px;
+}
+    #header {
+        height: 120px;
+        margin:0 0 10px 0;
+        -webkit-border-radius: 5px 5px 20px 20px;
+        padding: 25px;
+        border-bottom: 5px solid #666;
+        background: -webkit-gradient(linear, center top, center bottom, from(#666), to(white));
+        box-shadow: 1px 1px 3px rgba(0,0,0,.5), -1px -1px 3px rgba(0,0,0,.5);
+    }
+    
+                
+    
+    #content {
+        min-height: 450px;
+        margin:0 0 10px 0;
+        padding:20px;
+        background: #fff;
+        border-bottom: 5px solid #666;
+        box-shadow: 1px 1px 3px rgba(0,0,0,.5), -1px -1px 3px rgba(0,0,0,.5);
+        -webkit-border-radius: 20px 20px;
+    }
+
+
+    #footer {
+        height: 100px;
+        background: -webkit-gradient(linear, center top, center bottom, from(#fff), to(#666));
+        margin:0;
+        border-radius: 10px;
+        box-shadow: 1px 1px 3px rgba(0,0,0,.5), -1px -1px 3px rgba(0,0,0,.5);
+    }
+
+.judul {
+    color:black;
+}
+
+#basic-page {
+    background:red;
+    padding: 10px;
+}
+
+#basic-page p{
+    text-align:justify;
+    padding:0;
+    margin:0;
+}
+#kontak-page {
+    background:red;
+}
+#login-page {
+    background:red;
+}
+.error-message {
+    background:yellow;
+}

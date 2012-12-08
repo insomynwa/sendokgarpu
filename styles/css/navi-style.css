@@ -1,0 +1,97 @@
+#header nav{
+        background:red;
+        width: 600px;
+        position:relative;
+        margin:0;
+        font-family: SansationRegular;
+    }
+        #menu {
+            list-style:none;
+            margin:0;
+            padding:0;
+            position:relative;
+            
+        }
+            #menu li {
+                float:left;
+                width:98px;
+                text-align:center;
+                border-right: 2px solid #666;
+            }
+
+            #menu li:last-child {
+                border:none;
+            }
+            
+            #menu a {
+                text-decoration:none;
+                display: inline;
+                width:100px;
+                color: #333;
+                letter-spacing: 2px;
+            }
+            
+            #menu a:hover> span {
+                background: #BD3816;
+                padding: 5px 10px;
+                -webkit-border-radius: 5px;
+                color: #fff;
+            }
+            
+            #menu a:hover>img {
+                -webkit-transform: scale(.8);
+            }
+            
+            #menu a img {
+                -webkit-transform: scale(.5);  
+            }
+                        
+            #menu li>ul{
+                display:none;
+            }
+            
+            #menu li:hover >ul {
+                display: block;
+            }
+            
+            #dropdown {
+                margin:0px 0 0 0;
+                padding:10px;
+                position:absolute;
+                width: 200px;
+                z-index: 99;
+                background: #eee;
+                border: 2px solid #666;
+                border-radius: 10px;
+                
+            }
+            #dropdown li {
+                border-right: 2px dashed #666;
+                width:98px;
+                text-align:centea
+            }
+            #dropdown a {
+                display:inline;
+                 
+                width: 98px;
+                font-size: .9em;
+            }
+            
+            #dropdown a:hover>img {
+                -webkit-transform: scale(.8);
+            }
+            
+            #dropdown a:hover> span {
+                background: #BD3816;
+                padding: 5px 5px;
+                -webkit-border-radius: 5px;
+                color: #fff;
+            }
+            
+            #dropdown img {
+                -webkit-transform: scale(.4);
+                float:left;
+            }
+            
+
+            
