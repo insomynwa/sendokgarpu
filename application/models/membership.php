@@ -46,18 +46,15 @@ class Membership extends CI_Model {
 		$query =
 			$this->db
 				->where('user.user_id', $id)
-				//->select('user.user_name, user.user_email, images.img_name')
-				//->from('user')
-				//->join('images','images.img_by=user.user_id')
-				//->get();
 				->select('user.user_name, user.user_email')
 				->get('user');
 		$photo = $this->_get_user_photo($id); 
 		
-		if($query->num_rows() == 1)
+		if($query->num_rows() == 1){
 			$q2 = $query->row_array();
 			$q2['img_name'] = $photo['img_name'];
 			return $q2;
+		}
 		return false;
 	}
 

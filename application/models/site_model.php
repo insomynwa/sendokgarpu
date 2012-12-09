@@ -88,18 +88,6 @@ class Site_model extends CI_Model {
 		if($styles->num_rows()==0)
 			return false;
 		return $styles->row_array();
-		/*$this->db
-			->select("styles.styles_name")
-			->where("styles.styles_template", $template_id);
-
-		$query = $this->db->get("styles");
-		$data = $query->row_array();
-
-		if($query->num_rows() > 0 ) {
-			return $data['styles_name'];
-		}
-
-		return false;*/
 	}
 
 	public function get_cat_by($cat_id) {
@@ -132,58 +120,5 @@ class Site_model extends CI_Model {
 		}
 		return false;
 	}
-
-	/*private $_tbl;
-
-	public function __construct() {
-		parent::__construct();
-		$this->load->database();
-		$this->_tbl = 'resep';
-	}
-
-	public function get_records() {
-		
-		if($this->_tbl==='resep'){
-			$this->db->order_by('uploaded','desc');
-		}else if($this->_tbl==='pages'){
-			$this->db->order_by('id','asc');
-		}
-		$query = $this->db->get($this->_tbl);
-
-		return $query->result();
-	}
-
-	public function get_records_by_cat($cat, $lmt) {
-		$this->db->where('kategori', $cat);
-		$this->db->order_by('uploaded','desc');
-		if($lmt>0) {
-			$this->db->limit($lmt);
-		}
-		
-		$query = $this->db->get($this->_tbl);
-
-		return $query->result();
-	}
-
-	public function get_record_by_id($id) {
-		$this->db->where('id', $id);
-		$query = $this->db->get($this->_tbl);
-
-		return $query->result();
-	}
-
-	public function add_record($data) {
-		$this->db->insert($this->_tbl, $data);
-	}
-
-	public function del_record($id) {
-		$this->db->where('id', $id);
-		$this->db->delete($this->_tbl);
-	}
-
-	public function update_record($data, $id) {
-		$this->db->where('id', $id);
-		$this->db->update($this->_tbl, $data);
-	}*/
 
 }

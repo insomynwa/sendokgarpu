@@ -17,13 +17,6 @@ class Post_c extends CI_Controller{
 					$output['tanggal'][] = $k->post_date;
 					$output['komentar'][] = $k->post_content;
 				}
-				/*$output =
-					'{
-						"foto":"'.$img.'",
-						"user":"'.$user.'",
-						"tanggal":"'.$tgl.'",
-						"komentar":"'.$this->_remove_line_break($komentar).'"
-					}';*/
 				
 			}else {
 				$output['jumlah'] = "kosong";

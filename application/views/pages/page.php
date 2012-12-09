@@ -2,24 +2,6 @@
 <html lang="en">
 <head>
 	<?php $this->load->view('templates/header'); ?>
-</head>
-<body>
-	<div id="wrapper">
-		<header id="header">
-			<nav id="navi">
-				<?php $this->load->view('templates/navi') ?>
-			</nav>
-		</header>
-		<section id="content">
-			<article id="main-content">
-				<?php $this->load->view('pages/'.$main_content) ?>
-			</article>
-		</section>
-		<footer id="footer">
-			<?php $this->load->view('templates/footer'); ?>
-		</footer>
-	</div>
-	
 	<script>
 		$(document).ready(function() {
 
@@ -52,5 +34,24 @@
 		});
 		
 	</script>
+</head>
+<body>
+	<div id="wrapper">
+		<header id="header">
+			<nav id="navi">
+				<?php $this->load->view('templates/navi') ?>
+			</nav>
+		</header>
+		<section id="content">
+			<article id="main-content">
+				<?php $this->load->view('pages/'.$main_content) ?>
+			</article>
+		</section>
+		<footer id="footer">
+			<?php $this->load->view('templates/footer'); ?>
+		</footer>
+	</div>
+	
+	
 </body>
 </html>

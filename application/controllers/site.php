@@ -8,7 +8,7 @@ class Site extends CI_Controller {
 
 	public function index() {
 		$data['main_content'] = 'beranda';
-		$data['title'] = 'BERANDA';
+		$data['title'] = 'BERANDA | Sendok Garpu';
 
 		$this->load->view('pages/page', $data);
 	}
@@ -18,9 +18,8 @@ class Site extends CI_Controller {
 			$page_id = $_GET['page'];
 			$page = $this->site_model->get_page_by($page_id);
 			if($page){
-				$data['list'] = $this->site_model->get_topics_by($page_id);
-				$d['title'] = strtoupper($page['template_name']);
-				$data['konten'] = $this->_set_content($page['template_name']);
+				
+				$data = $this->_set_content($page['template_name'], $page_id);
 				//print_r($data);die;
 
 				$this->load->view('pages/'.$page['template_name'], $data);
@@ -32,24 +31,27 @@ class Site extends CI_Controller {
 		}
 	}
 
-	private function _set_content($page) {
-		
+	private function _set_content($page, $page_id) {
+		$d['title'] = strtoupper($page).' | Sendok Garpu';
 		switch ($page) {
-			case 'profile': case 'kontak':
+			case 'profile':
 				$this->load->model('membership');
-				$konten = $this->membership->get_profile($this->session->userdata('user_id'));
+				$d['konten'] = $this->membership->get_profile($this->session->userdata('user_id'));
+				break;
+			case 'kontak':
+
 				break;
 			case 'tentang':
 				$konten = "halaman tentang";
 				break;
-			case 'resep':
-				$konten = "halaman resep";
+			case 'subresep':
+				$d['list'] = $this->site_model->get_topics_by($page_id);
 				break;
 			default:
 				$konten = "page not found.";
 				break;
 		}
-		return $konten;
+		return $d;
 	}
 	
 }

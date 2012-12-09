@@ -40,31 +40,26 @@
 					var user = $("#user").val();
 					var komentar = $("#msg-komen").val();
 
-					$.ajax({
-						type: "POST",
-						url: "index.php/post-comment",
-						data: "topic="+topic+"&user="+user+"&comment="+komentar,
-						dataType: "json",
-						cache: false,
-						success:
-							function(komen) {
-								if(komen.is_true==true) {
-									$("#msg-komen").val("");
-									kmntr = "<section id='img-komen'>\
-												<img id='img-kom' src='<?php echo base_url() ?>images/users/"+komen.foto+"' />\
-												<span id='user-komen'>"+komen.user+"</span>\
-											</section>\
-											<section id='komentar'>\
-												<footer id='tgl-komentar'>"+komen.tanggal+"</footer>\
-												<section id='text-komentar'><p>"+komen.komentar+"</p></section>\
-											</section>";
-									$("#comm-area").append(kmntr);
-								}else {
-									$("#error-msg").html(komen.is_true).fadeIn("slow");
-								}
-								
+					$.post(
+						"index.php/post-comment", { topic:topic, user:user, comment:komentar},
+						function (komen) {
+							if(komen.is_true==true) {
+								$("#msg-komen").val("");
+								kmntr = "<section id='img-komen'>\
+											<img id='img-kom' src='<?php echo base_url() ?>images/users/"+komen.foto+"' />\
+											<span id='user-komen'>"+komen.user+"</span>\
+										</section>\
+										<section id='komentar'>\
+											<footer id='tgl-komentar'>"+komen.tanggal+"</footer>\
+											<section id='text-komentar'><p>"+komen.komentar+"</p></section>\
+										</section>";
+								$("#comm-area").append(kmntr);
+							}else {
+								$("#error-msg").html(komen.is_true).fadeIn("slow");
 							}
-					});
+						},
+						"json"
+						);
 					return false;
 				});
 
@@ -93,64 +88,55 @@
 				$("#comm-area").show();
 				$("#post-komen").show();
 				$(this).text("Sembunyikan Komentar");
+				load_comment();
 			}else {
 				$("#comm-area").hide();
 				$("#post-komen").hide();
 				$(this).text("Tampilkan Komentar");
 			}
-			show_comment();
 		});
 
 		function load_article() {
-			$.ajax({
-				url: "index.php/subcat",
-				type: "GET",
-				data: "topic="+topic_id,
-				dataType: "json",
-				cache: false,
-				success:
-					function(resep) {//alert(resep);
-						$("#nama-resep").html(resep.nama);
-						$("#tgl-resep").html(resep.tanggal);
-						$("#img-rsp").attr("src",""+resep.gambar);
-						$("#bahan").html("<p>"+resep.bahan+"</p>");
-						$("#cara").html("<p>"+resep.cara+"</p>");
-						$("#sumber").html("<p>"+resep.sumber+"</p>");
-						$("#btn-toggle-comm").show();
-					}
-			});
+			$.get(
+				"index.php/subcat", { topic:topic_id},
+				function(resep) {
+					$("#nama-resep").html(resep.nama);
+					$("#tgl-resep").html(resep.tanggal);
+					$("#img-rsp").attr("src",""+resep.gambar);
+					$("#bahan").html("<p>"+resep.bahan+"</p>");
+					$("#cara").html("<p>"+resep.cara+"</p>");
+					$("#sumber").html("<p>"+resep.sumber+"</p>");
+					$("#btn-toggle-comm").show();
+				},
+				"json"
+				);
 		}
 
-		function show_comment() {
-			$.ajax({
-				url: "index.php/comment",
-				type: "GET",
-				data: "topic="+topic_id,
-				dataType: "json",
-				timeout: 2000,
-				cache: false,
-				success:
-					function(komen) {//alert((komen.foto).length);
-						var kmntr = "";
-						if(komen.jumlah=="kosong") {
-							$("#comm-area").html("<p>"+komen.pesan+"</p>");
-						}else {
-							for(i=0; i<(komen.komentar).length; i++) {
-								kmntr = kmntr+"<section id='img-komen'>\
-												<img id='img-kom' src='<?php echo base_url() ?>images/users/"+komen.foto[i]+"' />\
-												<span id='user-komen'>"+komen.user[i]+"</span>\
-												</section>\
-												<section id='komentar'>\
-												<footer id='tgl-komentar'>"+komen.tanggal[i]+"</footer>\
-												<section id='text-komentar'><p>"+komen.komentar[i]+"</p></section>\
-												</section>";
-							}
-
-							$("#comm-area").html(kmntr);
-							window.setTimeout(show_comment, 30000);
+		function load_comment() {
+			$.get(
+				"index.php/comment",
+				{ topic:topic_id },
+				function(komen) {
+					var kmntr = "";
+					if(komen.jumlah=="kosong") {
+						$("#comm-area").html("<p>"+komen.pesan+"</p>");
+					}else {
+						for(i=0; i<(komen.komentar).length; i++) {
+							kmntr = kmntr+"<section id='img-komen'>\
+											<img id='img-kom' src='<?php echo base_url() ?>images/users/"+komen.foto[i]+"' />\
+											<span id='user-komen'>"+komen.user[i]+"</span>\
+											</section>\
+											<section id='komentar'>\
+											<footer id='tgl-komentar'>"+komen.tanggal[i]+"</footer>\
+											<section id='text-komentar'><p>"+komen.komentar[i]+"</p></section>\
+											</section>";
 						}
+
+						$("#comm-area").html(kmntr);
 					}
-			});
+				},
+				"json"
+			);
 		}
 
 	});
