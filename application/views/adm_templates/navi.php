@@ -1,6 +1,9 @@
-<nav>
-	<ul>
-		<li><a>Home</a></li>
-		<li><a>Manage Content</a></li>
-	</ul>
-</nav>
+<ul>
+	<li><a class="adm-n">news</a></li>
+	<li>manage
+		<ul>
+			<li><a class="adm-n">artikel</a><li>
+			<li>user<li>
+		</ul>
+	</li>
+</ul>

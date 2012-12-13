@@ -52,17 +52,18 @@ $route['profil'] = 'user_c/get_profile';
 $route['registrasi'] = 'registrasi_c/validation';
 $route['login'] = 'login/validation';
 $route['logout'] = 'logout';
+$route['adminpage'] = 'adminpage_c/load_content';
 /*$route['resep'] = 'site/resep';
 $route['resep/(:any)'] = 'site/resep/$1';
 $route['resep/(:any)/(:num)'] = 'site/resep/$1/$2';
 $route['tentang'] = 'site/pages/tentang';
 $route['kontak'] = 'site/pages/kontak';*/
 
-$route['administrator'] = 'administrator';
+/*$route['administrator'] = 'administrator';
 $route['administrator/manage'] = 'administrator/manage';
 $route['administrator/create'] = 'administrator/create';
 $route['administrator/delete/(:num)'] = 'administrator/delete';
-$route['administrator/update/(:num)'] = 'administrator/update/$1';
+$route['administrator/update/(:num)'] = 'administrator/update/$1';*/
 
 
 /*$route['crud/create'] = 'crud/create/$1';
