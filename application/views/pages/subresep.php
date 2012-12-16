@@ -1,73 +1,4 @@
-<?php $this->load->view('pages/basic'); ?>
-<section id="subresep">
-	<section id="topics-list">
-		<h4>Daftar Resep</h4>
-		<ul id='daftar-resep'>
-		<?php foreach($list as $l):?>
-			<li><a name="topic" id="<?php echo $l->topic_id ?>"><?php echo $l->topic_subject ?></a></li>
-		<?php endforeach; ?>
-		</ul>
-	</section>
-	<section id="slide"></section>
-	<section id="konten-resep">
-		<hgroup>
-			<h3 id="nama-resep"></h3>
-			<footer id="tgl-resep"></footer>
-		</hgroup>
-		<section id="img-resep"><img id="img-rsp" src="" /></section>
-		<section id="bahan"></section>
-		<section id="cara"></section>
-		<section id="sumber"></section>
-		<button id="btn-toggle-comm" hidden="hidden">Tampilkan Komentar</button>
-		<section id="comm-area" hidden="hidden">
-		</section>
-	</section>
-	<?php if($this->session->userdata("is_logged_in")): ?>
-	<section id="post-komen" hidden="hidden">
-		<form id="komen-form" method="post">
-			<p id="error-msg"></p>
-			<label for="msg-komen">Komentar:</label>
-			<textarea name="msg-komen" id="msg-komen"></textarea>
-			<input name="user" type="hidden" value="<?php echo $this->session->userdata("user_id"); ?>" id="user"/>
-			<input name="topic" type="hidden" value="" id="topic" />
-			<input type="submit" value="Beri Komentar" id="btn-submit-komen" />
-		</form>
-		<script>
-			$(document).ready(function(){
 
-				$("#btn-submit-komen").click(function(){
-					var topic = $("#topic").val();
-					var user = $("#user").val();
-					var komentar = $("#msg-komen").val();
-
-					$.post(
-						"index.php/post-comment", { topic:topic, user:user, comment:komentar},
-						function (komen) {
-							if(komen.is_true==true) {
-								$("#msg-komen").val("");
-								kmntr = "<section id='img-komen'>\
-											<img id='img-kom' src='<?php echo base_url() ?>images/users/"+komen.foto+"' />\
-											<span id='user-komen'>"+komen.user+"</span>\
-										</section>\
-										<section id='komentar'>\
-											<footer id='tgl-komentar'>"+komen.tanggal+"</footer>\
-											<section id='text-komentar'><p>"+komen.komentar+"</p></section>\
-										</section>";
-								$("#comm-area").append(kmntr);
-							}else {
-								$("#error-msg").html(komen.is_true).fadeIn("slow");
-							}
-						},
-						"json"
-						);
-					return false;
-				});
-
-			});
-		</script>
-	</section>
-	<?php endif; ?>
-</section>
 <script>
 	$(document).ready(function() {
 
@@ -139,5 +70,70 @@
 			);
 		}
 
+		$("#btn-submit-komen").click(function(){
+			var topic = $("#topic").val();
+			var user = $("#user").val();
+			var komentar = $("#msg-komen").val();
+
+			$.post(
+				"index.php/post-comment", { topic:topic, user:user, comment:komentar},
+				function (komen) {
+					if(komen.is_true==true) {
+						$("#msg-komen").val("");
+						kmntr = "<section id='img-komen'>\
+									<img id='img-kom' src='<?php echo base_url() ?>images/users/"+komen.foto+"' />\
+									<span id='user-komen'>"+komen.user+"</span>\
+								</section>\
+								<section id='komentar'>\
+									<footer id='tgl-komentar'>"+komen.tanggal+"</footer>\
+									<section id='text-komentar'><p>"+komen.komentar+"</p></section>\
+								</section>";
+						$("#comm-area").append(kmntr);
+					}else {
+						$("#error-msg").html(komen.is_true).fadeIn("slow");
+					}
+				},
+				"json"
+				);
+			return false;
+		});
+
 	});
 </script>
+<?php $this->load->view('pages/basic'); ?>
+<section id="subresep">
+	<section id="topics-list">
+		<h4>Daftar Resep</h4>
+		<ul id='daftar-resep'>
+		<?php foreach($list as $l):?>
+			<li><a name="topic" id="<?php echo $l->topic_id ?>"><?php echo $l->topic_subject ?></a></li>
+		<?php endforeach; ?>
+		</ul>
+	</section>
+	<section id="slide"></section>
+	<section id="konten-resep">
+		<hgroup>
+			<h3 id="nama-resep"></h3>
+			<footer id="tgl-resep"></footer>
+		</hgroup>
+		<section id="img-resep"><img id="img-rsp" src="" /></section>
+		<section id="bahan"></section>
+		<section id="cara"></section>
+		<section id="sumber"></section>
+		<button id="btn-toggle-comm" hidden="hidden">Tampilkan Komentar</button>
+		<section id="comm-area" hidden="hidden">
+		</section>
+	</section>
+	<?php if($this->session->userdata("is_logged_in")): ?>
+	<section id="post-komen" hidden="hidden">
+		<form id="komen-form" method="post">
+			<p id="error-msg"></p>
+			<label for="msg-komen">Komentar:</label>
+			<textarea name="msg-komen" id="msg-komen"></textarea>
+			<input name="user" type="hidden" value="<?php echo $this->session->userdata("user_id"); ?>" id="user"/>
+			<input name="topic" type="hidden" value="" id="topic" />
+			<input type="submit" value="Beri Komentar" id="btn-submit-komen" />
+		</form>
+	</section>
+	<?php endif; ?>
+</section>

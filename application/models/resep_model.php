@@ -34,7 +34,7 @@ class Resep_model extends CI_Model {
 	public function get_resep() {
 		$query =
 			$this->db
-				->select("topics.topic_date, categories.cat_name, topics.topic_subject, user.user_name")
+				->select("topics.topic_id, topics.topic_date, categories.cat_name, topics.topic_subject, user.user_name")
 				->from("topics")
 				->join("user","user.user_id=topics.topic_by")
 				->join("categories","categories.cat_id=topics.topic_cat")

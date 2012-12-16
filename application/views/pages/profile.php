@@ -1,5 +1,6 @@
 <script>
 	$(document).ready(function() {
+		$("title").html("<?php echo $title; ?>");
 		$.ajax({
 			url: 'index.php/profil',
 			type: 'GET',

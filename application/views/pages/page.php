@@ -25,7 +25,7 @@
 			$("a:contains('kontak')").click( function() { loadpage('4'); });
 			$("a:contains('resep')").click( function() { loadpage('5'); });
 			$("a:contains('login')").click( function() { loadpage('6'); });
-			$("a:contains('beranda')").click( function() { alert(this.value);/*loadpage('7');*/ });
+			$("a:contains('beranda')").click( function() { loadpage('7'); });
 
 			<?php if($this->session->userdata('is_logged_in')): ?>
 			$("a:contains('profil')").click( function() { loadpage('8'); });

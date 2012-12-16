@@ -31,6 +31,16 @@ class Membership extends CI_Model {
 		return $this->_id;
 	}
 
+	public function get_users() {
+		$query = $this->db
+					->select("user.user_id, user.user_name, user.user_email, user.user_join")
+					->order_by("user.user_join","desc")
+					->get("user");
+		if($query->num_rows() > 0)
+			return $query->result();
+		return false;
+	}
+
 	public function get_user($id) {
 		$query =
 			$this->db
