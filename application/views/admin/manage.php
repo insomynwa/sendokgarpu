@@ -1,43 +1,59 @@
 <script>
 	$(document).ready(function(){
+		$("a").css("cursor","pointer");
 		$("title").html("<?php echo $title; ?>");
+
+		load_content("<?php echo $content; ?>");
+		
+		$(".edit-resep").click(function(){
+			alert(this.id);
+		});
+		$(".edit-member").click(function(){
+			alert(this.id);
+		});
+
+		function load_content(content) {
+			$.get(
+				"index.php/daftar-konten",
+				{ content:content},
+				function(data) {
+					var tbl_data;
+					if(data.type=="resep") {
+						tbl_data = "<tr><td>No</td>\
+									<td>Tanggal</td>\
+									<td>Kategori</td>\
+									<td>Judul</td>\
+									<td>Penulis</td></tr>";
+						for(i=0; i<(data.judul).length; i++){
+							tbl_data = tbl_data+"<tr><td>"+(i+1)+"</td>\
+												<td>"+data.tanggal[i]+"</td>\
+												<td>"+data.kategori[i]+"</td>\
+												<td>"+data.judul[i]+"</td>\
+												<td>"+data.penulis[i]+"</td>\
+												<td><a class='edit-resep' id='"+data.id[i]+"' >Edit</a></td>\
+												<td><a class='delete-resep' id='"+data.id[i]+"' >Delete</a></td></tr>";
+						}
+					}
+					if(data.type=="member") {
+						tbl_data = "<tr><td>No</td>\
+									<td>Tanggal Registrasi</td>\
+									<td>Username</td>\
+									<td>Email</td></tr>";
+						for(i=0; i<(data.name).length; i++) {
+							tbl_data = tbl_data+"<tr><td>"+(i+1)+"</td>\
+												<td>"+data.join[i]+"</td>\
+												<td>"+data.name[i]+"</td>\
+												<td>"+data.email[i]+"</td>\
+												<td><a class='edit-member' id='"+data.id[i]+"' >Edit</a></td>\
+												<td><a class='delete-member' id='"+data.id[i]+"' >Delete</a></tr>";
+						}
+					}
+					$("#tbl-manage").html(tbl_data);
+				},
+				"json"
+			);
+			return false;
+		}
 	});
 </script>
-<table>
-	<tr>
-	<?php if($content=='artikel'): ?>
-		<td>No</td>
-		<td>Tanggal</td>
-		<td>Kategori</td>
-		<td>Judul</td>
-		<td>Penulis</td>
-	<?php endif; ?>
-	<?php if($content=='user'): ?>
-		<td>No</td>
-		<td>Tanggal Join</td>
-		<td>Username</td>
-		<td>Email</td>
-	<?php endif; ?>
-	</tr>
-	<?php if($content=='artikel'): ?>
-	<?php $i=0; foreach($list_resep as $lr): ?>
-		<tr>
-			<td><?php echo $i+1; ?></td>
-			<td><?php echo $lr->topic_date ?></td>
-			<td><?php echo $lr->cat_name ?></td>
-			<td><?php echo $lr->topic_subject ?></td>
-			<td><?php echo $lr->user_name ?></td>
-		</tr>
-	<?php $i++; endforeach; ?>
-	<?php endif; ?>
-	<?php if($content=='user'): ?>
-	<?php $i=0; foreach($list_user as $lu): ?>
-		<tr>
-			<td><?php echo $i+1; ?></td>
-			<td><?php echo $lu->user_join ?></td>
-			<td><?php echo $lu->user_name ?></td>
-			<td><?php echo $lu->user_email ?></td>
-		</tr>
-	<?php $i++; endforeach; ?>
-	<?php endif; ?>
-</table>
+<table id="tbl-manage"></table>

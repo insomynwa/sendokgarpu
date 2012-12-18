@@ -70,34 +70,6 @@
 			);
 		}
 
-		$("#btn-submit-komen").click(function(){
-			var topic = $("#topic").val();
-			var user = $("#user").val();
-			var komentar = $("#msg-komen").val();
-
-			$.post(
-				"index.php/post-comment", { topic:topic, user:user, comment:komentar},
-				function (komen) {
-					if(komen.is_true==true) {
-						$("#msg-komen").val("");
-						kmntr = "<section id='img-komen'>\
-									<img id='img-kom' src='<?php echo base_url() ?>images/users/"+komen.foto+"' />\
-									<span id='user-komen'>"+komen.user+"</span>\
-								</section>\
-								<section id='komentar'>\
-									<footer id='tgl-komentar'>"+komen.tanggal+"</footer>\
-									<section id='text-komentar'><p>"+komen.komentar+"</p></section>\
-								</section>";
-						$("#comm-area").append(kmntr);
-					}else {
-						$("#error-msg").html(komen.is_true).fadeIn("slow");
-					}
-				},
-				"json"
-				);
-			return false;
-		});
-
 	});
 </script>
 <?php $this->load->view('pages/basic'); ?>
@@ -134,6 +106,39 @@
 			<input name="topic" type="hidden" value="" id="topic" />
 			<input type="submit" value="Beri Komentar" id="btn-submit-komen" />
 		</form>
+		<script>
+			$(document).ready(function(){
+
+				$("#btn-submit-komen").click(function(){
+					var topic = $("#topic").val();
+					var user = $("#user").val();
+					var komentar = $("#msg-komen").val();
+
+					$.post(
+						"index.php/post-comment", { topic:topic, user:user, comment:komentar},
+						function (komen) {
+							if(komen.is_true==true) {
+								$("#msg-komen").val("");
+								kmntr = "<section id='img-komen'>\
+											<img id='img-kom' src='<?php echo base_url() ?>images/users/"+komen.foto+"' />\
+											<span id='user-komen'>"+komen.user+"</span>\
+										</section>\
+										<section id='komentar'>\
+											<footer id='tgl-komentar'>"+komen.tanggal+"</footer>\
+											<section id='text-komentar'><p>"+komen.komentar+"</p></section>\
+										</section>";
+								$("#comm-area").append(kmntr);
+							}else {
+								$("#error-msg").html(komen.is_true).fadeIn("slow");
+							}
+						},
+						"json"
+						);
+					return false;
+				});
+
+			});
+		</script>
 	</section>
 	<?php endif; ?>
 </section>

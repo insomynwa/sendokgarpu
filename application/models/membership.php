@@ -28,6 +28,7 @@ class Membership extends CI_Model {
 	}
 
 	public function get_user_id() {
+		
 		return $this->_id;
 	}
 

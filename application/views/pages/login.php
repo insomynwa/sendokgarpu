@@ -1,26 +1,53 @@
 <script>
-$(document).ready(function(){
+    $(document).ready(function(){
 
-    $("#r-form").click(function(){
-        $("#register-form").show();
-        $("#login-form").hide();
-    });
+        $("#r-form").click(function(){
+            $("#register-form").show();
+            $("#login-form").hide();
+        });
 
-    $("#l-form").click(function(){
-        $("#login-form").show();
-        $("#register-form").hide();
-    });
+        $("#l-form").click(function(){
+            $("#login-form").show();
+            $("#register-form").hide();
+        });
 
-    $("#login-submit").click(
-        function() {
-            var username = $("#username").val();
-            var password = $("#password").val();
+        $("#login-submit").click(
+            function() {
+                var username = $("#username").val();
+                var password = $("#password").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "index.php/login",
+                    //dataType: "json",
+                    data: "username="+username+"&password="+password,
+                    cache:false,
+                    success:
+                        function(data) {
+                            if(data==true){
+                                location.reload();
+                            }else {
+                                $(".error-message").html(data).fadeIn("slow");
+                                $("#password").val("");
+                            }
+                            
+                        }
+                });
+                return false;
+            }
+        );
+
+        $("#r-submit").click(function(){
+            var username = $("#r-username").val();
+            var email = $("#r-email").val();
+            var pass = $("#r-password").val();
+            var pass2 = $("#r-password2").val();
 
             $.ajax({
                 type: "POST",
-                url: "index.php/login",
+                url: "index.php/registrasi",
                 //dataType: "json",
-                data: "username="+username+"&password="+password,
+                data: "username="+username+"&email="+email+"&password="+pass+"&password2="+pass2,
                 cache:false,
                 success:
                     function(data) {
@@ -28,42 +55,15 @@ $(document).ready(function(){
                             location.reload();
                         }else {
                             $(".error-message").html(data).fadeIn("slow");
-                            $("#password").val("");
+                            $("#r-password").val("");
+                            $("#r-password2").val("");
                         }
-                        
                     }
             });
             return false;
-        }
-    );
-
-    $("#r-submit").click(function(){
-        var username = $("#r-username").val();
-        var email = $("#r-email").val();
-        var pass = $("#r-password").val();
-        var pass2 = $("#r-password2").val();
-
-        $.ajax({
-            type: "POST",
-            url: "index.php/registrasi",
-            //dataType: "json",
-            data: "username="+username+"&email="+email+"&password="+pass+"&password2="+pass2,
-            cache:false,
-            success:
-                function(data) {
-                    if(data==true){
-                        location.reload();
-                    }else {
-                        $(".error-message").html(data).fadeIn("slow");
-                        $("#r-password").val("");
-                        $("#r-password2").val("");
-                    }
-                }
         });
-        return false;
+        $(":submit").css("cursor","pointer");
     });
-    $(":submit").css("cursor","pointer");
-});
 </script>
 <?php $this->load->view('pages/basic'); ?>
 <form id='login-form' method='post'>

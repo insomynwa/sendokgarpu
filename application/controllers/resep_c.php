@@ -37,4 +37,31 @@ class Resep_c extends CI_Controller {
 		}
 		return implode($new_lines);
 	}
+
+	public function create_resep() {
+
+		if($_POST['nama']=='' || $_POST['kategori']==''
+			|| $_POST['bahan']=='' || $_POST['cara']=='' || $_POST['sumber']=='') {
+			$message = array('status' => false, 'msg' => 'field harus diisi semua');
+		}else {
+			//$message = $this->_upload_img;
+		}
+		echo json_encode($message);
+	}
+
+	public function upload_img() {
+		$config['upload_path'] = './images/resep/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		
+		$this->load->library('upload', $config);
+		
+		if ( ! $this->upload->do_upload('gambar')){
+			$status = "file tidak sesuai";
+		}
+		else{
+			$data = $this->upload->data();
+			$status = '<img src="'.base_url().'images/resep/'.$data['file_name'].'" />';
+		}
+		echo $status;
+	}
 }

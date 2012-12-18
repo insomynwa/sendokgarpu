@@ -1,7 +1,5 @@
 <script>
-	$(document).ready(function(){
-
-		function load_content(page , content) {
+	function load_content(page , content) {
 			$.get(
 				"index.php/adminpage",
 				{ page:page, content:content,  },
@@ -10,16 +8,18 @@
 				}
 			);
 		}
+	$(document).ready(function(){
+
+		
 		$(".adm-n").css("cursor","pointer");
-		$(".adm-n:contains('artikel')").click(function(){ load_content('9','artikel'); });
-		$(".adm-n:contains('user')").click(function(){ load_content('9','user'); });
+		$(".adm-n:contains('artikel')").click(function(){ load_content('9','resep'); });
+		$(".adm-n:contains('user')").click(function(){ load_content('9','member'); });
+		$(".adm-n:contains('buat resep baru')").click(function(){ load_content('10',''); });
 	});
 </script>
 <section id="adm-wrapper">
 	<nav id="adm-navi">
 		<?php $this->load->view('adm_templates/navi') ?>
 	</nav>
-	<section id="adm-content">
-		<?php $this->load->view('admin/home') ?>
-	</section>
+	<section id="adm-content"></section>
 </section>

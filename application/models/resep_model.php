@@ -1,5 +1,5 @@
 <?php
-class Resep_model extends CI_Model {
+class Resep_model extends CI_Model{
 
 	public function __construct() {
 		parent::__construct();
@@ -31,7 +31,7 @@ class Resep_model extends CI_Model {
 		return false;
 	}
 
-	public function get_resep() {
+	public function get_reseps() {
 		$query =
 			$this->db
 				->select("topics.topic_id, topics.topic_date, categories.cat_name, topics.topic_subject, user.user_name")

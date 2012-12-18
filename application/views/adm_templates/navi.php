@@ -1,5 +1,9 @@
 <ul>
-	<li><a class="adm-n">news</a></li>
+	<li>konten
+		<ul>
+			<li><a class="adm-n">buat resep baru</a></li>
+		</ul>
+	</li>
 	<li>manage
 		<ul>
 			<li><a class="adm-n">artikel</a><li>
