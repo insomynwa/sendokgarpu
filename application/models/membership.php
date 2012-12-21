@@ -57,7 +57,7 @@ class Membership extends CI_Model {
 		$query =
 			$this->db
 				->where('user.user_id', $id)
-				->select('user.user_name, user.user_email')
+				->select('user.user_name, user.user_email, user.user_join')
 				->get('user');
 		$photo = $this->_get_user_photo($id); 
 		

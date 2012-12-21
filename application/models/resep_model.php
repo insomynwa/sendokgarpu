@@ -44,4 +44,37 @@ class Resep_model extends CI_Model{
 			return $query->result();
 		return false;
 	}
+
+	public function add_resep($data) {
+		$data_topic = array(
+			'topic_subject' => $data['judul'],
+			'topic_cat' => $data['kategori'],
+			'topic_by' => $data['penulis']
+			);
+		$this->db->insert('topics', $data_topic);
+		$id=$this->_get_last_topic_id();
+		$data_receipt = array(
+			'receipt_bahan' => $data['bahan'],
+			'receipt_cara' => $data['cara'],
+			'receipt_sumber' => $data['sumber'],
+			'receipt_topic' => $id['topic_id']
+			);
+		$this->db->insert('receipt', $data_receipt);
+		$data_image = array(
+			'img_name' => $data['gambar'],
+			'img_topic' => $id['topic_id']
+			);
+		$this->db->insert('images', $data_image);
+	}
+
+	private function _get_last_topic_id() {
+		$query = $this->db
+				->select('topics.topic_id')
+				->order_by('topics.topic_date','desc')
+				->limit(1)
+				->get('topics');
+		if($query->num_rows()==1) {
+			return $query->row_array();
+		}
+	}
 }

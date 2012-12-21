@@ -20,6 +20,7 @@
 <img id="my-img" src="" />
 <p id="my-email"><?php echo $konten['user_email']; ?></p>
 <p id="my-name"><?php echo $konten['user_name']; ?></p>
+<p id="join-date"><?php echo $konten['user_join']; ?></p>
 <?php if($this->session->userdata('user_id')==1) {
 	$this->load->view('admin/adm_page');
 }
