@@ -39,6 +39,15 @@ class Resep_c extends CI_Controller {
 	}
 
 	public function create_resep() {
+		$is_admin = false;
+		if($this->session->userdata('is_logged_in') && $this->session->userdata('user_id') == 1) {
+			$is_admin = true;
+		}else {
+			$is_admin = false;
+		}
+		if($is_admin == FALSE) {
+			redirect(base_url());
+		}
 
 		if($_POST['judul']=='' || $_POST['kategori']==''
 			|| $_POST['bahan']=='' || $_POST['cara']=='' || $_POST['sumber']=='') {
@@ -72,8 +81,55 @@ class Resep_c extends CI_Controller {
 		//echo $message;
 	}
 
+	public function update_resep() {
+		$is_admin = false;
+		if($this->session->userdata('is_logged_in') && $this->session->userdata('user_id') == 1) {
+			$is_admin = true;
+		}else {
+			$is_admin = false;
+		}
+		if($is_admin == FALSE) {
+			redirect(base_url());
+		}
+		if($_POST['judul']=='' || $_POST['kategori']==''
+			|| $_POST['bahan']=='' || $_POST['cara']=='' || $_POST['sumber']=='') {
+			$message = array('status' => false, 'msg' => 'field harus diisi semua');
+			//$message = "field masih ada yang kosong";
+		}else {
+
+			$judul = $_POST['judul'];
+			$kategori = $_POST['kategori'];
+			$bahan = $_POST['bahan'];
+			$cara = $_POST['cara'];
+			$sumber = $_POST['sumber'];
+			$data = array(
+					'judul' => $judul,
+					'kategori' => $kategori,
+					'bahan' => $bahan,
+					'cara' => $cara,
+					'gambar' => 'no-image.jpg',
+					'sumber' => $sumber,
+					'penulis' => $this->session->userdata('user_id')
+				);
+			if(!empty($_FILES['gambar']) && $_FILES['gambar']!=null && $_FILES['gambar']!='') { 
+				$message = $this->_upload_img($judul);
+				if($message['status']) {
+					$data['gambar'] = $message['file'];
+				}
+			}else {
+				$message = array('status'=> true, 'msg' => 'sukses');
+			}
+			$this->resep_model->update_resep($_POST['resep-id'],$data);
+			
+			//$message = $judul.$kategori.$bahan.$cara.$sumber.$this->upload_img();
+			
+			
+		}
+		echo json_encode($message);
+	}
+
 	private function _upload_img($filename) {
-		$config['file_name'] = $filename;
+		$config['file_name'] = $filename.'-'.time();
 		$config['upload_path'] = './images/resep/';
 		$config['allowed_types'] = 'gif|jpg|png';
 		
@@ -88,5 +144,21 @@ class Resep_c extends CI_Controller {
 			$status = array('status'=> true, 'msg' => 'sukses', 'file'=> $data['file_name']);
 		}
 		return $status;
+	}
+
+	public function delete_resep() {
+		$is_admin = false;
+		if($this->session->userdata('is_logged_in') && $this->session->userdata('user_id') == 1) {
+			$is_admin = true;
+		}else {
+			$is_admin = false;
+		}
+		if($is_admin == FALSE) {
+			redirect(base_url());
+		}
+		if($_POST['resep']) {
+			$resep_id = $_POST['resep'];
+			$this->resep_model->delete_resep($resep_id);
+		}
 	}
 }

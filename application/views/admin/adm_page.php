@@ -1,20 +1,18 @@
 <script>
-	function load_content(page , content) {
+	function goto_content(page , content) {
 			$.get(
 				"index.php/adminpage",
-				{ page:page, content:content,  },
+				{ page:page, content:content  },
 				function(data) {
 					$("#adm-content").html(data);
 				}
 			);
 		}
 	$(document).ready(function(){
-
-		
 		$(".adm-n").css("cursor","pointer");
-		$(".adm-n:contains('artikel')").click(function(){ load_content('9','resep'); });
-		$(".adm-n:contains('user')").click(function(){ load_content('9','member'); });
-		$(".adm-n:contains('buat resep baru')").click(function(){ load_content('10',''); });
+		$(".adm-n:contains('artikel')").click(function(){ goto_content('9','resep'); });
+		$(".adm-n:contains('user')").click(function(){ goto_content('9','member'); });
+		$(".adm-n:contains('buat resep baru')").click(function(){ goto_content('10',''); });
 	});
 </script>
 <section id="adm-wrapper">

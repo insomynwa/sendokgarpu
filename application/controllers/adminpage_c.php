@@ -3,6 +3,15 @@ class Adminpage_c extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
+		$is_admin = false;
+		if($this->session->userdata('is_logged_in') && $this->session->userdata('user_id') == 1) {
+			$is_admin = true;
+		}else {
+			$is_admin = false;
+		}
+		if($is_admin == FALSE) {
+			redirect(base_url());
+		}
 		$this->load->model("site_model");
 	}
 
@@ -17,8 +26,13 @@ class Adminpage_c extends CI_Controller {
 		}
 	}
 
+	public function get_content() {
+
+	}
+
 	public function get_list_contents() {
 		if($_GET['content']) {
+			$output = '';
 			$content = $_GET['content'];
 			if($content=="resep") {
 				$this->load->model('resep_model');
@@ -55,18 +69,21 @@ class Adminpage_c extends CI_Controller {
 		$d['title'] = strtoupper($page);
 		switch ($page) {
 			case 'manage':
-				if($_GET['content']=='artikel'){
+				//if($_GET['content']=='artikel'){
 
-					$this->load->model('resep_model');
-					$d['list_resep'] = $this->resep_model->get_reseps();
-				}
-				if($_GET['content']=='user') {
-					$this->load->model('membership');
-					$d['list_user'] = $this->membership->get_users();
-				}
+					//$this->load->model('resep_model');
+					//$d['list_resep'] = $this->resep_model->get_reseps();
+				//}
+				//if($_GET['content']=='user') {
+					//$this->load->model('membership');
+					//$d['list_user'] = $this->membership->get_users();
+				//}
 				$d['content'] = $_GET['content'];
 				break;
-			
+			case 'update_content':
+				$this->load->model('resep_model');
+				$d['content'] = $this->resep_model->get_resep_by_id($_GET['content']);
+				break;
 			default:
 				# code...
 				break;

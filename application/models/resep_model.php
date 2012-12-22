@@ -9,7 +9,7 @@ class Resep_model extends CI_Model{
 	public function get_resep_by_id($topic_id) {
 		$query = $this->db
 			->where("topics.topic_id", $topic_id)
-			->select("topics.topic_subject, topics.topic_date,
+			->select("topics.topic_id, topics.topic_subject, topics.topic_date, topics.topic_cat,
 				images.img_name,
 				receipt.receipt_bahan,receipt.receipt_cara, receipt.receipt_sumber")
 			->from("topics")
@@ -76,5 +76,35 @@ class Resep_model extends CI_Model{
 		if($query->num_rows()==1) {
 			return $query->row_array();
 		}
+	}
+
+	public function update_resep($id,$data) {
+		$data_topic = array(
+			'topic_subject' => $data['judul'],
+			'topic_cat' => $data['kategori'],
+			'topic_by' => $data['penulis']
+			);
+		$this->db->where('topics.topic_id', $id);
+		$this->db->update('topics', $data_topic);
+
+		$data_receipt = array(
+			'receipt_bahan' => $data['bahan'],
+			'receipt_cara' => $data['cara'],
+			'receipt_sumber' => $data['sumber']
+			);
+		$this->db->where('receipt.receipt_topic', $id);
+		$this->db->update('receipt', $data_receipt);
+
+		$data_image = array(
+			'img_name' => $data['gambar'],
+			);
+		$this->db->where('images.img_topic', $id);
+		$this->db->update('images', $data_image);
+
+	}
+
+	public function delete_resep($id) {
+		$this->db->where('topics.topic_id',$id);
+		$this->db->delete('topics');
 	}
 }

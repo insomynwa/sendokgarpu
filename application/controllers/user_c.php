@@ -3,6 +3,15 @@ class User_c extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
+		$is_logged_in = false;
+		if($this->session->userdata('is_logged_in')) {
+			$is_logged_in = true;
+		}else {
+			$is_logged_in = false;
+		}
+		if($is_logged_in == FALSE) {
+			redirect(base_url());
+		}
 		$this->load->model("membership");
 	}
 

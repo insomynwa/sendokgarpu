@@ -27,6 +27,15 @@ class Post_c extends CI_Controller{
 	}
 
 	public function add_post() {
+		$is_logged_in = false;
+		if($this->session->userdata('is_logged_in')) {
+			$is_logged_in = true;
+		}else {
+			$is_logged_in = false;
+		}
+		if($is_logged_in == FALSE) {
+			redirect(base_url());
+		}
 		if($_POST['topic'] && $_POST['user'] && $_POST['comment']) {
 			$data_komen = array(
 				"topic" => $_POST['topic'],
