@@ -1,16 +1,20 @@
-
 <script>
 	$(document).ready(function() {
 
 		var topic_id;
-
+		if(topic!=0) {
+			topic_id=topic;
+			topic=0;
+			loadArticle(topic_id);
+		}
+		$("a").css("cursor","pointer");
 		$("a[name='topic']").click(function(){
 			$("#comm-area").empty();
 			$("button[id='btn-toggle-comm']").text("Tampilkan Komentar");
 			$("#post-komen").hide();
 			topic_id = this.id;
 			$("#topic").val(topic_id);
-			load_article();
+			loadArticle(topic_id);
 		});
 
 		$("button[id='btn-toggle-comm']").click(function(){
@@ -19,7 +23,7 @@
 				$("#comm-area").show();
 				$("#post-komen").show();
 				$(this).text("Sembunyikan Komentar");
-				load_comment();
+				loadComment();
 			}else {
 				$("#comm-area").hide();
 				$("#post-komen").hide();
@@ -27,12 +31,12 @@
 			}
 		});
 
-		function load_article() {
+		function loadArticle(t) {
 			$.get(
-				"index.php/subcat", { topic:topic_id},
+				"index.php/subcat", { topic:t},
 				function(resep) {
 					$("#nama-resep").html(resep.nama);
-					$("#tgl-resep").html(resep.tanggal);
+					$("#info-resep").html(resep.tanggal+' oleh '+resep.penulis);
 					$("#img-rsp").attr("src",""+resep.gambar);
 					$("#bahan").html("<p>"+resep.bahan+"</p>");
 					$("#cara").html("<p>"+resep.cara+"</p>");
@@ -43,7 +47,7 @@
 				);
 		}
 
-		function load_comment() {
+		function loadComment() {
 			$.get(
 				"index.php/comment",
 				{ topic:topic_id },
@@ -86,7 +90,7 @@
 	<section id="konten-resep">
 		<hgroup>
 			<h3 id="nama-resep"></h3>
-			<footer id="tgl-resep"></footer>
+			<footer id="info-resep"></footer>
 		</hgroup>
 		<section id="img-resep"><img id="img-rsp" src="" /></section>
 		<section id="bahan"></section>

@@ -19,6 +19,7 @@ class Membership extends CI_Model {
 			$this->_set_id($query);
 			return true;
 		}
+		return false;
 	}
 
 	private function _set_id($q) {
@@ -59,7 +60,7 @@ class Membership extends CI_Model {
 				->where('user.user_id', $id)
 				->select('user.user_name, user.user_email, user.user_join')
 				->get('user');
-		$photo = $this->_get_user_photo($id); 
+		$photo = $this->get_user_photo($id); 
 		
 		if($query->num_rows() == 1){
 			$q2 = $query->row_array();
@@ -70,7 +71,7 @@ class Membership extends CI_Model {
 	}
 
 	public function add_user($data) {
-		$valid_username = $this->_cek_username($data['username']);
+		$valid_username = $this->cek_username($data['username']);
 		if($valid_username) {
 			$user = array(
 				'user_name' => $data['username'],
@@ -96,7 +97,7 @@ class Membership extends CI_Model {
 		$this->db->insert('images', $data);
 	}
 
-	private function _cek_username($username) {
+	public function cek_username($username) {
 		$query =
 			$this->db
 				->where('user.user_name', $username)
@@ -107,7 +108,7 @@ class Membership extends CI_Model {
 		return false;
 	}
 
-	private function _get_user_photo($user_id) {
+	public function get_user_photo($user_id) {
 		$query = 
 			$this->db
 				->where('img_by',$user_id)
@@ -115,6 +116,33 @@ class Membership extends CI_Model {
 		if($query->num_rows == 1)
 			return $query->row_array();
 		return false;
+	}
+
+	public function update_photo($id,$data) {
+
+		$data_img = array(
+			'img_name' => $data['photo']
+			);
+
+		$query =
+			$this->db
+				->where('images.img_by', $id)
+				->update('images', $data_img);
+	}
+
+	public function update_user($data) {
+		$new_data = array(
+			'user_pass' => sha1($data['new_pass'])
+			);
+		$this->db
+			->where('user.user_id', $data['id'])
+			->update('user', $new_data);
+	}
+
+	public function delete_user($id) {
+		$this->db
+		->where('user.user_id',$id)
+		->delete('user');
 	}
 
 }

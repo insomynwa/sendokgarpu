@@ -8,7 +8,7 @@
 				dataType: 'json',
 				success: function(data){
 					if(data.status) {
-						goto_content('9','resep');
+						goToContent('9','resep');
 					}else {
 						$(".error-message").html(data.msg);
 						timer = window.setTimeout(failed,2000);
@@ -48,7 +48,7 @@
 	<textarea id="resep-cara" name="cara" rows="8" cols="80"><?php echo $content['receipt_cara'] ?></textarea></p>
 	<p><label>Sumber:</label>
 	<input type="text" id="resep-sumber" value="<?php echo $content['receipt_sumber'] ?>" name="sumber" placeholder="input sumber" size="50"/></p>
-	<input type="hidden" name="resep-id" value="<?php echo $content['topic_id'] ?>" />
+	<input type="hidden" name="id" value="<?php echo $content['topic_id'] ?>" />
 	<input type="button" id="resep-submit" value="Submit" />
 <?php echo form_close(); ?>
 </section>

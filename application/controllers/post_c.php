@@ -45,7 +45,6 @@ class Post_c extends CI_Controller{
 			$topic_id = $_POST['topic'];
 
 			$this->post_model->add_comment($data_komen);
-			//echo json_encode($data_komen);die;
 			$komen = $this->post_model->get_comment_by_topic($topic_id, true);
 			$last_komen['foto'] = $komen['img_name'];
 			$last_komen['user'] = $komen['user_name'];

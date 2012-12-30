@@ -43,7 +43,7 @@ class Site_model extends CI_Model {
 
 		if($query->num_rows()==1) {
 			if($temp=='konten') {
-				$tpc = $this->_get_topics_for($cat_id);//print_r($tpc); die;
+				$tpc = $this->_get_topics_for($cat_id);
 				if( $tpc != false) {
 					return $konten = array(
 						"description" => $data['cat_description'],
@@ -73,8 +73,6 @@ class Site_model extends CI_Model {
 		if($template->num_rows()==0)
 			return false;
 		return $template->row_array();
-		/*$data = $this->_get_records_by_cat($cat_id, 'template');
-		return $data;*/
 	}
 
 	public function get_styles_for($cat_id) {
@@ -114,7 +112,6 @@ class Site_model extends CI_Model {
 			->select("topics.topic_subject")
 			->where("topics.topic_cat", $cat_id);
 		$query = $this->db->get("topics");
-		//print_r($query->result());die;
 		if($query->num_rows() > 0) {
 			return $query->result();
 		}

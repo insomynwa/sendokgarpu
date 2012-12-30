@@ -1,7 +1,8 @@
 <?php $this->load->view('pages/basic'); ?>
 <?php $this->load->view('pages/subresep'); ?>
+minuman
 <script>
-$(document).ready(function() {
+/*$(document).ready(function() {
 
 	$.ajax({
 		url: "index.php/subcat",
@@ -13,5 +14,5 @@ $(document).ready(function() {
 				$("#topics-list").html(topic);
 			}
 	});
-});
+});*/
 </script>

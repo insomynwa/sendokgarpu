@@ -26,26 +26,40 @@ class Adminpage_c extends CI_Controller {
 		}
 	}
 
-	public function get_content() {
-
-	}
-
 	public function get_list_contents() {
 		if($_GET['content']) {
 			$output = '';
 			$content = $_GET['content'];
 			if($content=="resep") {
 				$this->load->model('resep_model');
-				$resep = $this->resep_model->get_reseps();
+				$resep = $this->resep_model->get_reseps($this->session->userdata('user_id'));
+				$output['type'] = 'resep';
 				if($resep) {
-					$output['type'] = 'resep';
 					foreach ($resep as $r) {
 						$output['tanggal'][] = $r->topic_date;
 						$output['kategori'][] = $r->cat_name;
+						$output['kategori_id'][] = $r->cat_id;
 						$output['judul'][] = $r->topic_subject;
 						$output['penulis'][] = $r->user_name;
 						$output['id'][] = $r->topic_id;
+						$output['edit_txt'][] = 'Edit';
+						$output['edit_func'][] = 'goToContent("11" , '.$r->topic_id.')';
+						$output['del_txt'][] = 'Delete';
+						$output['del_func'][] = 'yesNoDialog("resep", '.$r->topic_id.')';
 					}
+				}else {
+					//foreach ($resep as $r) {
+						$output['tanggal'][] = '-';
+						$output['kategori'][] = '-';
+						$output['kategori_id'][] = '-';
+						$output['judul'][] = '-';
+						$output['penulis'][] = '-';
+						$output['id'][] = '-';
+						$output['edit_txt'][] = '';
+						$output['edit_func'][] = '';
+						$output['del_txt'][] = '';
+						$output['del_func'][] = '';
+					//}
 				}
 			}
 			if($content=="member") {
@@ -69,15 +83,6 @@ class Adminpage_c extends CI_Controller {
 		$d['title'] = strtoupper($page);
 		switch ($page) {
 			case 'manage':
-				//if($_GET['content']=='artikel'){
-
-					//$this->load->model('resep_model');
-					//$d['list_resep'] = $this->resep_model->get_reseps();
-				//}
-				//if($_GET['content']=='user') {
-					//$this->load->model('membership');
-					//$d['list_user'] = $this->membership->get_users();
-				//}
 				$d['content'] = $_GET['content'];
 				break;
 			case 'update_content':

@@ -41,7 +41,7 @@ class Registrasi_c extends CI_Controller {
 						$output = true;
 					}
 				}else {
-					$output = "Maaf, untuk saat ini anda tidak dapat melakukan registrasi.";
+					$output = "username telah digunakan.";
 				}
 			}
 		}

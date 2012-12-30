@@ -1,5 +1,5 @@
 <script>
-	var timer;
+	
 	$(document).ready(function(){
 		$("#resep-submit").click(function(){
 			$("#info").html('');
@@ -9,7 +9,7 @@
 				dataType: 'json',
 				success: function(data){
 					if(data.status) {
-						goto_content('9','resep');
+						goToContent('9','resep');
 					}else {
 						$(".error-message").html(data.msg);
 						timer = window.setTimeout(failed,2000);

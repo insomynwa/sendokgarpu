@@ -68,21 +68,21 @@
 <?php $this->load->view('pages/basic'); ?>
 <form id='login-form' method='post'>
     <section class="error-message"></section>
-	<label for='username'>Username:</label>
+	<label for='username'>username:</label>
 	<input name='username' type='text' id="username" />
-	<label for='password' >Password:</label>
+	<label for='password' >password:</label>
 	<input name='password' type='password' id="password" />
 	<input type='submit' value='Login' name="login-submit" id='login-submit' /><br><a id="r-form">Registrasi ?</a>
 </form>
 <form id='register-form' method='post' hidden="hidden">
     <section class="error-message"></section>
-    <label>Username:</label>
+    <label>username:</label>
     <input type="text" name="r-username" id="r-username">
-    <label>E-mail:</label>
+    <label>e-mail:</label>
     <input type="email" name="email" id="r-email">
-    <label>Password:</label>
+    <label>password:</label>
     <input type="password" id="r-password" name="r-password">
-    <label>Re-type password:</label>
+    <label>ketik ulang password:</label>
     <input type="password" id="r-password2" name="r-password2">
     <input type="submit" id="r-submit" name="r-submit" value="Registrasi" /><br><a id="l-form">Login ?</a>
 </form>

@@ -1,5 +1,6 @@
 <?php $this->load->view('pages/basic'); ?>
 <?php $this->load->view('pages/subresep'); ?>
+masakan
 <script>
 /*$(document).ready(function() {
 
