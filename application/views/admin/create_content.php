@@ -1,5 +1,4 @@
-<script>
-	
+<script>	
 	$(document).ready(function(){
 		$("#resep-submit").click(function(){
 			$("#info").html('');
@@ -8,28 +7,16 @@
 			$("#form-resep").ajaxForm({
 				dataType: 'json',
 				success: function(data){
-					if(data.status) {
-						goToContent('9','resep');
-					}else {
-						$(".error-message").html(data.msg);
+					if(data.status) { goToContent('9','resep'); }
+					else { $(".error-message").html(data.msg).fadeIn('slow');
 						timer = window.setTimeout(failed,2000);
-					}
-				}
-			}).submit();
-		});
+					} } }).submit(); });
 
-		function failed() {
-			$("#info").html('');
-			$("#form-resep").show();
-			window.clearTimeout(timer);
-		}
-
-	});
-</script>
+		function failed() { $("#info").html(''); $("#form-resep").show(); window.clearTimeout(timer); } }); </script>
 <section id="create-resep">
 <section id="info"></section>
-<?php echo form_open_multipart('create-resep','id="form-resep"') ?>
-	<section class="error-message"></section>
+	<?php echo form_open_multipart('create-resep','id="form-resep"') ?>
+	<section class="error-message" hidden="hidden"></section>
 	<p><label>Nama Resep:</label>
 	<input id="resep-judul" type="text" name="judul" placeholder="input judul" size="30"/></p>
 	<p>
@@ -49,5 +36,4 @@
 	<p><label>Sumber:</label>
 	<input type="text" id="resep-sumber" name="sumber" placeholder="input sumber" size="50"/></p>
 	<input type="button" id="resep-submit" value="Submit" />
-<?php echo form_close(); ?>
-</section>
+	<?php echo form_close(); ?> </section>

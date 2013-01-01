@@ -1,0 +1,97 @@
+#kolom-profil{
+    width: 500px;
+    min-height:220px;
+    background: #eee;
+    padding: 20px;
+    border-radius: 5px 25px;
+    box-shadow: 1px 1px 1px #666, -1px -1px 1px #666;
+    margin-bottom: 20px;
+    float:left;
+}
+
+#my-img {
+    max-width: 150px;
+    max-height: 200px;
+    border-radius: 2px 10px;
+    box-shadow: 3px 3px 2px #666;
+    margin-bottom: 10px;
+    float:left;
+}
+
+#my-profil {
+    text-align:left;
+    background: #fff;
+    border: 1px dashed #666;
+    border-radius: 2px 10px;
+    padding: 5px 10px;
+    margin-left: 180px;
+}
+
+#my-profil td:first-child {
+    padding:0;
+    margin:0;
+    width:100px;
+}
+
+#my-profil td:last-child {
+    background: #61B8EC;
+    padding: 5px 10px;
+    border-radius: 2px 10px 10px 2px;
+    box-shadow:1px 1px 1px #666;
+    letter-spacing: 1px;
+
+}
+
+#my-profil tr:first-child td:last-child {
+    font-family: SansationBold;
+
+    font-size: 1.1em;
+    color:#fff;
+
+}
+
+.profil-navi {
+    float:right;
+    width:300px;
+}
+
+.profil-navi a{
+    background: #FF8578;;
+    border-radius:5px;
+    outline:none;
+    color:#fff;border:none;
+    font-family: SansationLight;
+    font-weight: bold;
+}
+
+.profil-navi a:hover {
+    color:#666;
+}
+
+.profil-navi ul a {
+    background: #eee;
+    color: #666;
+    padding: 0px 20px;  
+}
+
+.profil-navi ul a:hover {
+    background: #666;
+    color: #eee;
+}
+
+
+.profil-content {
+    clear:both;
+    padding:20px;
+    box-shadow: 1px 1px 1px #666, -1px -1px 1px #666;
+    border-radius: 20px;
+}
+
+#form-resep {
+    width: 500px;
+    text-align:left;
+}
+
+#resep-bahan, #resep-cara {
+    width: 450px;
+}

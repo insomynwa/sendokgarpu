@@ -1,8 +1,4 @@
 <script>
 	$(document).ready(function(){
-		$("title").html("<?php echo $title; ?>");
-	});
-</script>
-<h2 id="title-konten" class="judul"></h2>
-<section id="img-konten"></section>
-<section id="txt-konten"></section>
+		$("title").html("<?php echo strtoupper($general['title']).' | Sendok Garpu' ?>"); }); </script>
+<h2 id="title-page" class="judul"><?php echo ucfirst($general['title']) ?></h2>

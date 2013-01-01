@@ -15,6 +15,17 @@ form label {
     display: block;
 }
 
+form textarea {
+    width: 310px;
+    border:none;
+    border-radius: 5px;
+    box-shadow: inset 1px 1px 1px #999, inset -1px -1px 1px #999;
+    min-height: 50px;
+    font-family: SansationLight;
+    padding: 20px;
+    background: -webkit-gradient(linear, center top, center bottom, from(#eee), to(white));
+}
+
 form input {
     margin-bottom: 10px;
     -webkit-border-radius: 4px;
@@ -26,6 +37,21 @@ form input {
     box-shadow: inset -1px -1px 3px rgba(0,0,0,.2);
     font-family: SansationLight;
     font-size: 1em;
+
+}
+
+form select {
+    margin-bottom: 10px;
+    -webkit-border-radius: 4px;
+    border:none;
+    padding: 5px 10px;
+    letter-spacing: 1px;
+    background: -webkit-gradient(linear, center top, center bottom, from(#eee), to(white));
+    text-align: center;
+    box-shadow: inset -1px -1px 3px rgba(0,0,0,.2);
+    font-family: SansationLight;
+    font-size: 1em;
+    width:200px
 }
 
 form input:focus {
@@ -36,6 +62,7 @@ form input[type='submit'] {
     background: -webkit-gradient(linear, center top, center bottom, from(#333), to(#666));
     color: #fff;
     font-family: SansationRegular;
+    cursor:pointer;
 }
 
 form input[type='submit']:hover {

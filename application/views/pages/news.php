@@ -1,23 +1,30 @@
-<?php for($i=0; $i<sizeof($news); $i++): ?>
-	<?php
-		$rsp = '';
-		if($i==0) {
-			$rsp = 'masakan';
-		}else if($i==1) {
-			$rsp = 'minuman';
-		}
-	?>
-	<article id="artikel-news">
-	<h3><?php echo $rsp; ?></h3>
-	<?php foreach($news[$rsp] as $r): ?>
-		<img id="img-news" src="<?php echo $r->gambar ?>" />
-		<article id="info-news">
-			<h5><?php echo $r->nama ?></h5>
-			<p>diunggah pada: <?php echo $r->uploaded ?> </p>
-			<p>konten</p>
+<section id='news'>
+	<section class="news-col" id='news-resep-masakan'>
+		<h3>Resep Masakan Terbaru</h3>
+	<?php foreach($specific['news_masakan'] as $msk): ?>
+		<article>
+			<img class="news-img" src="<?php echo base_url().'images/resep/'.$msk->img_name ?>" />
+			<ul>
+				<li class="news-topic"><?php echo $msk->topic_subject ?></li>
+				<li><?php echo date('d M Y',strtotime($msk->topic_date)); ?></li>
+				<li>oleh: <?php echo $msk->user_name ?></li>
+				<li><a onClick="goToArticle('1', '<?php echo $msk->topic_id ?>')" >baca selengkapnya</a></li>
+			</ul>
 		</article>
-		<footer><?php echo anchor("resep/$r->kategori/$r->id",'baca selengkapnya ..'); ?>
-		</footer>
-	<?php endforeach ?>
-	</article>
-<?php endfor; ?>
+	<?php endforeach; ?>
+	</section>
+	<section class="news-col" id='news-resep-minuman'>
+		<h3>Resep Minuman Terbaru</h3>
+	<?php foreach($specific['news_minuman'] as $mnm): ?>
+		<article>
+			<img class="news-img" src="<?php echo base_url().'images/resep/'.$mnm->img_name ?>" />
+			<ul>
+				<li class="news-topic"><?php echo $mnm->topic_subject ?></li>
+				<li><?php echo date('d M Y',strtotime($mnm->topic_date)); ?></li>
+				<li>oleh: <?php echo $mnm->user_name ?></li>
+				<li><a onClick="goToArticle('2', '<?php echo $mnm->topic_id ?>')" >baca selengkapnya</a></li>
+			</ul>
+		</article>
+	<?php endforeach; ?>
+	</section>
+</section>
