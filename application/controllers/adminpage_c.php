@@ -1,13 +1,13 @@
 <?php
 class Adminpage_c extends CI_Controller {
 
+	private $_permited;
+	private $_full_permitted;
+
 	public function __construct() {
 		parent::__construct();
-		$is_admin = false;
-		if($this->session->userdata('is_logged_in') && $this->session->userdata('user_id') == 1) {
-			$is_admin = true;
-		}else { $is_admin = false; }
-		if($is_admin == FALSE) { redirect(base_url()); }
+		$this->_verifikasi();
+		if(! $this->_full_permitted) redirect(base_url());
 		$this->load->model("site_model"); }
 
 	public function load_content() {
@@ -24,14 +24,16 @@ class Adminpage_c extends CI_Controller {
 			$content = $_GET['content'];
 			if($content=="resep") {
 				$this->load->model('resep_model');
+				$this->load->model('post_model');
 				$resep = $this->resep_model->get_reseps($this->session->userdata('user_id'));
 				$output['type'] = 'resep';
 				if($resep) {
 					foreach ($resep as $r) {
-						$output['tanggal'][] = $r->topic_date;
+						$output['tanggal'][] = date('h:i a, d M Y', strtotime($r->topic_date));
 						$output['kategori'][] = $r->cat_name;
 						$output['kategori_id'][] = $r->cat_id;
 						$output['judul'][] = $r->topic_subject;
+						$output['komentar'][] = $this->post_model->get_num_comment($r->topic_id);
 						$output['penulis'][] = $r->user_name;
 						$output['id'][] = $r->topic_id;
 						$output['edit_txt'][] = 'Edit';
@@ -43,6 +45,7 @@ class Adminpage_c extends CI_Controller {
 					$output['kategori'][] = '-';
 					$output['kategori_id'][] = '-';
 					$output['judul'][] = '-';
+					$output['komentar'][] = '-';
 					$output['penulis'][] = '-';
 					$output['id'][] = '-';
 					$output['edit_txt'][] = '';
@@ -55,7 +58,7 @@ class Adminpage_c extends CI_Controller {
 				if($member) {
 					$output['type'] = 'member';
 					foreach ($member as $m) {
-						$output['join'][] = $m->user_join;
+						$output['join'][] = date('h:i a, d M Y', strtotime($m->user_join));
 						$output['name'][] = $m->user_name;
 						$output['email'][] = $m->user_email;
 						$output['id'][] = $m->user_id;
@@ -67,10 +70,36 @@ class Adminpage_c extends CI_Controller {
 		$d['title'] = strtoupper($page);
 		switch ($page) {
 			case 'manage': $d['content'] = $_GET['content']; break;
+			case 'create_content':
+				$this->load->library('table');
+				$image_array = get_clickable_smileys(base_url().'images/smileys/','resep-bahan');
+				$image_array2 = get_clickable_smileys(base_url().'images/smileys/','resep-cara');
+				$image_array3 = get_clickable_smileys(base_url().'images/smileys/','resep-desk');
+				$col_array = $this->table->make_columns($image_array,15);
+				$col_array2 = $this->table->make_columns($image_array2,15);
+				$col_array3 = $this->table->make_columns($image_array3,15);
+				$d['smiley_table_bahan'] = $this->table->generate($col_array);
+				$d['smiley_table_cara'] = $this->table->generate($col_array2);
+				$d['smiley_table_desk'] = $this->table->generate($col_array3);
+				break;
 			case 'update_content': $this->load->model('resep_model');
+				$this->load->library('table');
+				$image_array = get_clickable_smileys(base_url().'images/smileys/','resep-bahan');
+				$image_array2 = get_clickable_smileys(base_url().'images/smileys/','resep-cara');
+				$image_array3 = get_clickable_smileys(base_url().'images/smileys/','resep-desk');
+				$col_array = $this->table->make_columns($image_array,15);
+				$col_array2 = $this->table->make_columns($image_array2,15);
+				$col_array3 = $this->table->make_columns($image_array3,15);
+				$d['smiley_table_bahan'] = $this->table->generate($col_array);
+				$d['smiley_table_cara'] = $this->table->generate($col_array2);
+				$d['smiley_table_desk'] = $this->table->generate($col_array3);
 				$d['content'] = $this->resep_model->get_resep_by_id($_GET['content']); break;
 			default:
 				# code...
 				break;
 		} return $d; }
+
+	private function _verifikasi() {
+		if($this->session->userdata('is_logged_in')) $this->_permited=true; else $this->_permited=false;
+		if($this->session->userdata('user_id') == 1) $this->_full_permitted=true; else $this->_full_permitted=false; }
 }

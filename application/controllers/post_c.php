@@ -1,7 +1,10 @@
 <?php
 class Post_c extends CI_Controller{
 
-	public function __construct() { parent::__construct(); $this->load->model("post_model"); }
+	private $_permited;
+	private $_full_permitted;
+
+	public function __construct() { parent::__construct(); $this->load->model("post_model"); $this->_verifikasi(); }
 
 	public function load_post() {
 		if($_GET['topic']) {
@@ -9,27 +12,32 @@ class Post_c extends CI_Controller{
 			$komen = $this->post_model->get_comment_by_topic($topic_id, false);
 			if($komen) {
 				foreach ($komen as $k) {
+					$output['id'][] = $k->post_id;
 					$output['foto'][] = $k->img_name;
 					$output['user'][] = $k->user_name;
-					$output['tanggal'][] = $k->post_date;
-					$output['komentar'][] = $k->post_content; } }
+					$output['tanggal'][] = date('h:i a, d M Y', strtotime($k->post_date));
+					$output['komentar'][] = parse_smileys(str_replace('\n', '<br>', $k->post_content), base_url().'images/smileys/'); 
+					if($this->session->userdata('is_logged_in') && $this->session->userdata('user_id')==1) {
+						$output['del'][] = '<section class="delete-komentar" ><a onclick="yesNoDialog(\'comment\',\''.$k->post_id.'\')">Delete</a></section>';			
+					}else{
+						$output['del'][] = '';
+					}
+				} 
+			}
 			else {
 				$output['jumlah'] = "kosong";
 				$output['pesan'] = "Belum ada komentar yang dikirim."; }
 			echo json_encode($output); } }
 
 	public function add_post() {
-		$is_logged_in = false;
-		if($this->session->userdata('is_logged_in')) { $is_logged_in = true; }
-		else { $is_logged_in = false; }
-		if($is_logged_in == FALSE) { redirect(base_url()); }
+		if(! $this->_permited ) redirect(base_url());
 		$topic = mysql_real_escape_string($_POST['topic']);
 		$user = mysql_real_escape_string($_POST['user']);
 		$comment = mysql_real_escape_string($_POST['comment']);
 		if($topic=='' || $user=='' || $comment=='') {
 			$output = array('status'=>false,'msg'=>'lengkapi field yang tersedia.'); }
 		else {
-			if(strlen($comment)<3) { $output = array('status'=>false,'msg'=>'komen terlalu pendek.'); }
+			if(strlen($comment)<6) { $output = array('status'=>false,'msg'=>'komen terlalu pendek.'); }
 			else{ $data_komen = array( "topic" => $topic, "user"=> $user , "komen" => $comment );
 				$this->post_model->add_comment($data_komen);
 				$output = array('status'=>true,'msg'=>'sukses.'); } }
@@ -49,4 +57,13 @@ class Post_c extends CI_Controller{
 				$this->post_model->add_message($data_msg);
 				$output = array('status'=>true,'msg'=>'terima kasih.'); } }
 		echo json_encode($output); }
+	public function delete_post() {
+		if(! $this->_permited ) redirect(base_url());
+		if($_POST['komentar']) {
+			$post_id = mysql_real_escape_string($_POST['komentar']);
+			$this->post_model->delete_comment($post_id); }  }
+
+	private function _verifikasi() {
+		if($this->session->userdata('is_logged_in')) $this->_permited=true; else $this->_permited=false;
+		if($this->session->userdata('user_id') == 1) $this->_full_permitted=true; else $this->_full_permitted=false; }
 }

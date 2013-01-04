@@ -1,5 +1,6 @@
 <script>	
 	$(document).ready(function(){
+		setSmiley();
 		$("#resep-submit").click(function(){
 			$("#info").html('');
 			$("#info").html('<img src="./styles/images/loader.gif" />');
@@ -29,11 +30,17 @@
 		<option value="1">Resep Masakan</option>
 		<option value="2">Resep Minuman</option>
 	</select></p>
+	<p><label>Deskripsi:</label><br>
+	<section class="smiley"><a href="#" >Smiley</a><div><?php echo $smiley_table_desk; ?></div></section>
+	<textarea id="resep-desk" name="deskripsi" rows="8" cols="80"></textarea></p></p>
 	<p><label>Bahan:</label><br>
+	<section class="smiley"><a href="#" >Smiley</a><div><?php echo $smiley_table_bahan; ?></div></section>
 	<textarea id="resep-bahan" name="bahan" rows="8" cols="80"></textarea></p>
 	<p><label>Cara Membuat:</label><br>
+	<section class="smiley"><a href="#" >Smiley</a><div><?php echo $smiley_table_cara; ?></div></section>
 	<textarea id="resep-cara" name="cara" rows="8" cols="80"></textarea></p>
 	<p><label>Sumber:</label>
 	<input type="text" id="resep-sumber" name="sumber" placeholder="input sumber" size="50"/></p>
+	<input type="hidden" name="type" value="create-resep" />
 	<input type="button" id="resep-submit" value="Submit" />
 	<?php echo form_close(); ?> </section>

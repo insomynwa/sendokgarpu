@@ -1,11 +1,13 @@
 <?php
 class User_c extends CI_Controller {
 
+	private $_permited;
+	private $_full_permitted;
+
 	public function __construct() {
 		parent::__construct(); $is_logged_in = false;
-		if($this->session->userdata('is_logged_in')) { $is_logged_in = true; }
-		else { $is_logged_in = false; }
-		if($is_logged_in == FALSE) { redirect(base_url()); }
+		$this->_verifikasi();
+		if(! $this->_permited ) redirect(base_url());
 		$this->load->model("membership"); $this->load->model('site_model'); }
 
 	public function load_content() {
@@ -76,26 +78,49 @@ class User_c extends CI_Controller {
 		$d['title'] = strtoupper($page);
 		switch ($page) {
 			case 'manage': $d['content'] = $_GET['content']; break;
-			case 'update_content': $this->load->model('resep_model');
+			case 'create_content':
+				$d['smiley_table_bahan'] = $this->_set_smiley('bahan');
+				$d['smiley_table_cara'] = $this->_set_smiley('cara');
+				$d['smiley_table_desk'] = $this->_set_smiley('desk');
+				break;
+			case 'update_content':
+				$this->load->model('resep_model');
+				$d['smiley_table_bahan'] = $this->_set_smiley('bahan');
+				$d['smiley_table_cara'] = $this->_set_smiley('cara');
+				$d['smiley_table_desk'] = $this->_set_smiley('desk');
 				$d['content'] = $this->resep_model->get_resep_by_id($_GET['content']); break;
 			default: break; } return $d; }
+
+	private function _set_smiley($smiley_table) {
+		$this->load->library('table');
+		$image_array = get_clickable_smileys(base_url().'images/smileys/','resep-'.$smiley_table);
+		$col_array = $this->table->make_columns($image_array,15);
+		return $this->table->generate($col_array);
+	}
 
 	public function get_list_contents() {
 		if($_GET['content']) { $output = ''; $content = $_GET['content'];
 			if($content=="resep") { $this->load->model('resep_model');
+				$this->load->model('post_model');
 				$resep = $this->resep_model->get_reseps($this->session->userdata('user_id'));
 				$output['type'] = 'resep';
 				if($resep) {
 					foreach ($resep as $r) {
-						$output['tanggal'][] = $r->topic_date; $output['kategori'][] = $r->cat_name;
+						$output['tanggal'][] = date('h:i a, d M Y', strtotime($r->topic_date));
+						$output['kategori'][] = $r->cat_name;
 						$output['kategori_id'][] = $r->cat_id; $output['judul'][] = $r->topic_subject;
+						$output['komentar'][] = $this->post_model->get_num_comment($r->topic_id);
 						$output['penulis'][] = $r->user_name; $output['id'][] = $r->topic_id;
 						$output['edit_txt'][] = 'Edit'; $output['del_txt'][] = 'Delete';
 						$output['edit_func'][] = 'goToContent("11" , '.$r->topic_id.')';
 						$output['del_func'][] = 'yesNoDialog("resep", '.$r->topic_id.')'; } }
 				else { $output['tanggal'][] = '-'; $output['kategori'][] = '-';
 					$output['kategori_id'][] = '-'; $output['judul'][] = '-';
+					$output['komentar'][] = '-';
 					$output['penulis'][] = '-'; $output['id'][] = '-';
 					$output['edit_txt'][] = ''; $output['edit_func'][] = '';
 					$output['del_txt'][] = ''; $output['del_func'][] = ''; } }
-			echo json_encode($output); } } }
+			echo json_encode($output); } }
+	private function _verifikasi() {
+		if($this->session->userdata('is_logged_in')) $this->_permited=true; else $this->_permited=false;
+		if($this->session->userdata('user_id') == 1) $this->_full_permitted=true; else $this->_full_permitted=false; } }

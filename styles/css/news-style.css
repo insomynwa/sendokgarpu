@@ -3,78 +3,56 @@
     margin:10px 0 0 0;
     padding:0;
     height: 450px;
-    float:right;
-}
-    .news-col {
-        width: 260px;
-        background: #eee;
-        padding: 10px;
-        height: 350px;
-        border-radius: 10px;
-        box-shadow: 1px 1px 1px #666, -1px -1px 1px #666;
-    }
-    
-    .news-col h3 {
-        text-align:center;
-        margin:0 0 10px 0;
-        background: #FF8578;
-        padding: 5px;
-        border-radius: 10px;
-        color: white
-    }
-    
-    .news-topic {
-        font-family: SansationBold;
-        color: #666;
-    }
-    
-    .news-col img {
-        width: 50px;
-        float:left;
-        margin:0;padding:0;
-        box-shadow: 1px 1px 5px #666;
-    }
-    
-    .news-col article {
-        background: #fff;
-        padding: 5px;
-        margin-bottom: 10px;
-        border-radius: 0 20px;
-        box-shadow: 1px 1px 5px #666;
-    }
-    
-    .news-col article:hover {
-        border-radius:0;
-        -webkit-transform:scale(1.1);
-    }
-    
-    .news-col ul {
-        width: 200px;
-        padding:0;
-        margin:0 5px 0 60px;
-    }
-    
-    .news-col li {
-        font-size: 1em;
-        margin:0px;
-        padding:0px;
-
-    }
-    
-    .news-col a {
-        padding: 1px;
-        color: red;
-        font-style: italic;
-        font-size: .9em;
-    }
-    .news-col a:hover {
-        background: #eee;
-        color: black;
-    }
-        #news-resep-masakan {
-            float:left;
-        }
-        
-        #news-resep-minuman {
-            float:right;
-        }
+    float:right;}
+.news-col {
+    width: 260px;
+    background: #eee;
+    padding: 12px;
+    height: 350px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px #666, -1px -1px 1px #666;}
+.news-col h3 {
+    text-align:center;
+    margin:0 0 10px 0;
+    background: #BD3816;
+    padding: 5px;
+    border-radius: 10px;
+    color: #fff;
+    box-shadow: 1px 1px 5px #666;}
+.news-topic {
+    font-family: SansationBold;
+    color: #666;
+    width:190px;}
+.news-col img {
+    width: 50px;
+    float:left;
+    margin:0;padding:0;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px #666;}
+.news-col article {
+    background: #fff;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 2px 20px 20px 2px;
+    box-shadow: 2px 2px 5px #666;
+    position:relative;}
+.news-col article:hover {
+    border-radius:2px; }
+.news-col ul {
+    width: 200px;
+    padding:0;
+    margin:0 5px 0 60px;}
+.news-col li {
+    font-size: .9em;
+    margin:0px;
+    padding:0px;}
+.news-col a {
+    padding: 1px;
+    color: red;
+    font-style: italic;
+    font-size: .9em;}
+.news-col a:hover {
+    background: #eee;
+    color: black;}
+#news-resep-masakan { float:left;}
+#news-resep-minuman { float:right;}

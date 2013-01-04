@@ -37,6 +37,7 @@ class Resep_model extends CI_Model{
 		$data_topic = array(
 			'topic_subject' => $data['judul'],
 			'topic_cat' => $data['kategori'],
+			'topic_desc' => $data['deskripsi'],
 			'topic_by' => $data['penulis'] );
 		$this->db->insert('topics', $data_topic);
 		$id=$this->_get_last_topic_id();
@@ -59,6 +60,7 @@ class Resep_model extends CI_Model{
 	public function update_resep($id,$data) {
 		$data_topic = array(
 			'topic_subject' => $data['judul'],
+			'topic_desc' => $data['deskripsi'],
 			'topic_cat' => $data['kategori'] );
 		$this->db->where('topics.topic_id', $id);
 		$this->db->update('topics', $data_topic);

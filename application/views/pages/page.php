@@ -5,17 +5,10 @@
 	<script>
 		$(document).ready(function() {
 			$("a").css("cursor","pointer");
-			$("a:contains('masakan')").click( function() { loadPage('1'); });
-			$("a:contains('minuman')").click( function() { loadPage('2'); });
-			$("a:contains('tentang')").click( function() { loadPage('3'); });
-			$("a:contains('kontak')").click( function() { loadPage('4'); });
-			$("a:contains('login')").click( function() { loadPage('6'); });
-			$("a:contains('beranda')").click( function() { loadPage('7'); });
 			<?php if($this->session->userdata('is_logged_in')): ?>
-			$("a:contains('profil')").click( function() { loadPage('8'); });
-			$("a:contains('profil')").click( loadPage('8'));
+			loadPage('8');
 			<?php endif ?>
-		});	
+		});
 	</script>
 </head>
 <body>
@@ -30,28 +23,75 @@
 			<article id="main-content">
 				<?php $this->load->view('pages/'.$main_content) ?>
 			</article>
+			<div id="del-dialog" hidden="hidden">Yakin ingin dihapus?</div> 
 		</section>
-		<footer id="footer">
+		<div id="footer">
 			<?php $this->load->view('templates/footer'); ?>
-		</footer>
+		</div>
 	</div>
 	<script type="text/javascript">
-		var topic_id;
-		var topic = 0;
-		function loadPage(page) {
-			$.ajax({
-				type: "GET",
-				url: "index.php/cat",
-				data: "page="+page,
-				cache: false,
-				success:
-					function(data) {
-						$("#main-content").html(data);
+		function loadComment() {
+			$.get(
+				"index.php/comment",
+				{ topic:topic_id },
+				function(komen) {
+					var kmntr = "";
+					if(komen.jumlah=="kosong") {
+						$("#comm-area").html("<p>"+komen.pesan+"</p>");
+					}else {
+						for(i=0; i<(komen.komentar).length; i++) {
+							kmntr = kmntr+"<article class='komen'><section class='img-komen'>\
+											<img class='img-kom' src='<?php echo base_url() ?>images/users/"+komen.foto[i]+"' />\
+											<span class='user-komen'>"+komen.user[i]+"</span>\
+											</section>\
+											<section class='komentar'>\
+											<footer class='tgl-komentar'>"+komen.tanggal[i]+"</footer>\
+											<section class='text-komentar'><p>"+komen.komentar[i]+"</p></section>\
+											</section>"+komen.del[i]+"</article>";
+						}
+
+						$("#comm-area").html(kmntr);
 					}
-			}); }
-		function goToArticle(kategori_id, t){
-			loadPage(kategori_id);
-			topic = t; }
+				},
+				"json"
+			); }
+		<?php if($this->session->userdata('is_logged_in')): ?>
+		function yesNoDialog(content,id){
+			$("#del-dialog").dialog({
+				title: "Hapus "+content,
+				modal: true,
+				draggable: false,
+				resizable: false,
+				dialogClass: "dialog-yesno-style",
+				closeOnEscape: true,
+				buttons: [
+					{
+						text: "Ya", 'class': 'yes-btn',
+						click: function() {
+							if(content=='resep') {
+								$.ajax({ type: "POST", url: "index.php/delete-resep", data: "resep="+id,
+									success: function(data) { loadContent(''+content); $("#del-dialog").dialog("close"); }
+								}); }
+							<?php if($this->session->userdata('user_id')==1): ?>
+							if(content=='comment') {
+								$.ajax({ type: "POST", url: "index.php/delete-comment", data: "komentar="+id,
+									success: function(data) { loadComment(); $("#del-dialog").dialog("close"); }
+								}); }
+							if(content=='member') {
+								$.ajax({ type: "POST", url: "index.php/delete-member", data: "member="+id,
+									success: function(data) { loadContent(''+content); $("#del-dialog").dialog("close"); }
+								}); }
+							<?php endif; ?>
+						}
+					},
+					{
+						text: "Tidak", click: function() { $("#del-dialog").dialog("close"); }
+					}
+				]
+				}); }
+		<?php endif; ?>
 	</script>
+	<?php echo smiley_js(); ?>
+	<script language="javascript" src="<?php echo base_url(); ?>js/sendokgarpu.js"></script>
 </body>
 </html>

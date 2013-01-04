@@ -1,5 +1,6 @@
 <script>
 	$(document).ready(function() {
+		
 		$("#comm-area").hide();
 		$("a").css("cursor","pointer");
 
@@ -24,8 +25,9 @@
 				"index.php/subcat", { topic:t},
 				function(resep) {
 					$("#nama-resep").html(resep.nama);
-					$("#info-resep").html("<span class='tgl-rilis'><?php echo date('h:i a, d M Y',time('"+resep.tanggal+"')); ?></span>"+" oleh <span class='penulis'>"+resep.penulis+"</span>");
+					$("#info-resep").html("<span class='tgl-rilis'>"+resep.tanggal+"</span>"+" oleh <span class='penulis'>"+resep.penulis+"</span>");
 					$("#img-rsp").attr("src",""+resep.gambar);
+					$("#deskripsi").html("<p>"+resep.deskripsi+"</p>");
 					$("#bahan").html("<p><strong>Bahan :</strong><br>"+resep.bahan+"</p>");
 					$("#cara").html("<p><strong>Cara :</strong><br>"+resep.cara+"</p>");
 					$("#sumber").html("<p><strong>Sumber :</strong><br>"+resep.sumber+"</p>");
@@ -38,6 +40,7 @@
 			else { $(ca).fadeOut('slow'); $(pk).fadeOut('slow'); $("#btn-toggle-comm").text(txt); } }
 
 		<?php if($this->session->userdata("is_logged_in")): ?>
+		setSmiley();
 		$("#btn-submit-komen").click(function(){
 			var topicid = topic_id;
 			var user = $("#user").val();
@@ -74,6 +77,7 @@
 			<footer id="info-resep"></footer>
 		</hgroup>
 		<section id="img-resep"><img id="img-rsp" src="" /></section>
+		<section id="deskripsi"></section>
 		<section id="bahan"></section>
 		<section id="cara"></section>
 		<section id="sumber"></section>
@@ -84,6 +88,7 @@
 			<form id="komen-form" method="post">
 				<section class="error-message" hidden="hidden"></section>
 				<label for="msg-komen">Komentar:</label>
+				<section class="smiley"><a href="#" >Smiley</a><div><?php echo $specific['smiley_table']; ?></div></section>
 				<textarea name="msg-komen" id="msg-komen"></textarea><br>
 				<input name="user" type="hidden" value="<?php echo $this->session->userdata("user_id"); ?>" id="user"/>
 				<input name="topic" type="hidden" value="" id="topic" />
@@ -92,29 +97,3 @@
 		</section>
 		<?php endif; ?>
 	</section> </section>
-<script type="text/javascript">
-	function loadComment() {
-		$.get(
-			"index.php/comment",
-			{ topic:topic_id },
-			function(komen) {
-				var kmntr = "";
-				if(komen.jumlah=="kosong") {
-					$("#comm-area").html("<p>"+komen.pesan+"</p>");
-				}else {
-					for(i=0; i<(komen.komentar).length; i++) {
-						kmntr = kmntr+"<article class='komen'><section class='img-komen'>\
-										<img class='img-kom' src='<?php echo base_url() ?>images/users/"+komen.foto[i]+"' />\
-										<span class='user-komen'>"+komen.user[i]+"</span>\
-										</section>\
-										<section class='komentar'>\
-										<footer class='tgl-komentar'><?php echo date('h:i a, d M Y',time('"+komen.tanggal[i]+"')); ?></footer>\
-										<section class='text-komentar'><p>"+komen.komentar[i]+"</p></section>\
-										</section></article>";
-					}
-
-					$("#comm-area").html(kmntr);
-				}
-			},
-			"json"
-		); } </script>

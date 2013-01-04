@@ -1,20 +1,7 @@
 #k-form {
     width: 600px;
-    text-align:left;
-    
-}
-#k-email, #k-nama {
-    width: 200px;
-}
-
-#k-subjek option {
-    border:none;
-}
-
-#k-form textarea {
-    width: 500px;
-}
-
-#k-form .error-message {
-    text-align:center;
-}
+    text-align:left;  }
+#k-email, #k-nama { width: 200px;}
+#k-subjek option { border:none;}
+#k-form textarea { width: 500px;}
+#k-form .error-message { text-align:center;}

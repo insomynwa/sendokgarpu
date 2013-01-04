@@ -1,84 +1,63 @@
 <?php
 class Resep_c extends CI_Controller {
 
-	public function __construct() { parent::__construct(); $this->load->model("resep_model"); }
+	private $_permited;
+	private $_full_permitted;
+
+	public function __construct() {
+		parent::__construct();
+		$this->load->model("resep_model");
+		$this->_verifikasi(); }
 
 	public function load_content() {
 		if($_GET['topic']) { $topic_id = $_GET['topic'];
 			$receipt = $this->resep_model->get_resep_by_id($topic_id);
 			if($receipt) {
-				$output =
-					'{ "nama":"'.$receipt['topic_subject'].'",
-						"tanggal":"'.$receipt['topic_date'].'",
-						"penulis":"'.$receipt['penulis'].'",
-						"gambar":"'.base_url().'images/resep/'.$receipt['img_name'].'",
-						"bahan":"'.$this->_remove_line_break($receipt['receipt_bahan']).'",
-						"cara":"'.$this->_remove_line_break($receipt['receipt_cara']).'",
-						"sumber":"'.$receipt['receipt_sumber'].'" }';
-				echo $output; } } }
+				$output['nama'] = $receipt['topic_subject'];
+				$output['tanggal'] = date('h:i a, d M Y', strtotime($receipt['topic_date']));
+				$output['penulis'] = $receipt['penulis'];
+				$output['gambar'] = base_url().'images/resep/'.$receipt['img_name'];
+				$output['deskripsi'] = parse_smileys(str_replace(array('\r\n', '\r'), '<br>', $receipt['topic_desc']), base_url().'images/smileys/');
+				$output['bahan'] = parse_smileys(str_replace(array('\r\n', '\r'), '<br>', $receipt['receipt_bahan']), base_url().'images/smileys/');
+				$output['cara'] = parse_smileys(str_replace(array('\r\n', '\r'), '<br>', $receipt['receipt_cara']), base_url().'images/smileys/');
+				$output['sumber'] = $receipt['receipt_sumber'];
+				echo json_encode($output); } } }
 
-	private function _remove_line_break($content) {
-		$content = str_replace(array("\r\n", "\r"), "\n", $content);
-		$lines = explode("\n", $content); $new_lines = array();
-		foreach ($lines as $i => $line) {
-		    if(!empty($line)) $new_lines[] = trim($line); }
-		return implode($new_lines); }
-
-	public function create_resep() {
-		$is_logged_in = false;
-		if($this->session->userdata('is_logged_in')) { $is_logged_in = true; }
-		else { $is_logged_in = false; }
-		if($is_logged_in == FALSE) { redirect(base_url()); }
-		if($_POST['judul']=='' || $_POST['kategori']=='' || $_POST['bahan']=='' ||
-			$_POST['cara']=='' || $_POST['sumber']=='') {
+	public function create_or_update_resep() {
+		if(! $this->_permited ) redirect(base_url());
+		if($_POST['judul']=='' || $_POST['kategori']=='' || $_POST['deskripsi']==''
+			|| $_POST['bahan']=='' || $_POST['cara']=='' || $_POST['sumber']=='') {
 			$message = array('status' => false, 'msg' => 'field harus diisi semua'); }
 		else {
 			$judul = mysql_real_escape_string($_POST['judul']);
 			$kategori = mysql_real_escape_string($_POST['kategori']);
+			$deskripsi = mysql_real_escape_string($_POST['deskripsi']);
 			$bahan = mysql_real_escape_string($_POST['bahan']);
 			$cara = mysql_real_escape_string($_POST['cara']);
 			$sumber = mysql_real_escape_string($_POST['sumber']);
-			$data = array(
-					'judul' => $judul,
-					'kategori' => $kategori,
-					'bahan' => $bahan,
-					'cara' => $cara,
-					'gambar' => 'no-image.jpg',
-					'sumber' => $sumber,
-					'penulis' => $this->session->userdata('user_id') );
+			$data['judul'] = $judul;
+			$data['kategori'] = $kategori;
+			$data['deskripsi'] = $deskripsi;
+			$data['bahan'] = $bahan;
+			$data['cara'] = $cara;
+			$data['sumber'] = $sumber;
+			if($_POST['type']=='create-resep') {
+				$data['gambar'] = 'no-image.jpg';
+				$data['penulis'] = $this->session->userdata('user_id');
+				$data['tipe'] = 'create'; }
+			if($_POST['type']=='update-resep') {
+				$data['resep_id'] = mysql_real_escape_string($_POST['id']);
+				$image = $this->resep_model->get_image_by($data['resep_id']);
+				$data['gambar'] = $image['img_name'];
+				$data['tipe'] = 'update'; }
 			$message = $this->_upload_img($judul);
 			if($message['status']) { $data['gambar'] = $message['file']; }
 			else { $message = array('status'=> true, 'msg' => 'sukses'); }
-			$this->resep_model->add_resep($data); }
-		echo json_encode($message); }
+			$this->_resep_do($data); } echo json_encode($message); }
 
-	public function update_resep() {
-		$is_logged_in = false;
-		if($this->session->userdata('is_logged_in')) { $is_logged_in = true; }
-		else { $is_logged_in = false; }
-		if($is_logged_in == FALSE) { redirect(base_url()); }
-		if($_POST['judul']=='' || $_POST['kategori']==''
-			|| $_POST['bahan']=='' || $_POST['cara']=='' || $_POST['sumber']=='') {
-			$message = array('status' => false, 'msg' => 'field harus diisi semua');
-		}else {
-			$judul = mysql_real_escape_string($_POST['judul']);
-			$kategori = mysql_real_escape_string($_POST['kategori']);
-			$bahan = mysql_real_escape_string($_POST['bahan']);
-			$cara = mysql_real_escape_string($_POST['cara']);
-			$sumber = mysql_real_escape_string($_POST['sumber']);
-			$image = $this->resep_model->get_image_by(mysql_real_escape_string($_POST['id']));
-			$data = array(
-					'judul' => $judul,
-					'kategori' => $kategori,
-					'bahan' => $bahan,
-					'cara' => $cara,
-					'gambar' => $image['img_name'],
-					'sumber' => $sumber );
-			$message = $this->_upload_img($judul);
-			if($message['status']) { $data['gambar'] = $message['file']; }
-			else { $message = array('status'=> true, 'msg' => 'sukses'); }
-			$this->resep_model->update_resep(mysql_real_escape_string($_POST['id']),$data); }
-		echo json_encode($message); }
+	private function _resep_do($data) {
+		if($data['tipe']=='create') { $this->resep_model->add_resep($data); }
+		else if($data['tipe']=='update') { $this->resep_model->update_resep($data['resep_id'],$data); } }
 
 	private function _upload_img($filename) {
 		$config['file_name'] = $filename.'_'.time();
@@ -91,11 +70,12 @@ class Resep_c extends CI_Controller {
 		return $status; }
 
 	public function delete_resep() {
-		$is_logged_in = false;
-		if($this->session->userdata('is_logged_in')) { $is_logged_in = true; }
-		else { $is_logged_in = false; }
-		if($is_logged_in == FALSE) { redirect(base_url()); }
+		if(! $this->_permited ) redirect(base_url());
 		if($_POST['resep']) {
 			$resep_id = mysql_real_escape_string($_POST['resep']);
 			$this->resep_model->delete_resep($resep_id); } }
+
+	private function _verifikasi() {
+		if($this->session->userdata('is_logged_in')) $this->_permited=true; else $this->_permited=false;
+		if($this->session->userdata('user_id') == 1) $this->_full_permitted=true; else $this->_full_permitted=false; }
 }

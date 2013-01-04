@@ -1,1 +1,2 @@
-&copy; <?php echo date('Y', time()) ?>
+<div id="f-copy"><p>Copyright &copy; <?php echo date('Y', time()) ?> Sendok Garpu All Right Reserved<p></div>
+<div class="link-back-top"><a href="#" onclick="window.scrollTo(0,0); return false">Back to Top</a></div>

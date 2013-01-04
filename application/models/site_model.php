@@ -19,7 +19,16 @@ class Site_model extends CI_Model {
 	//used
 	public function get_topics_by($id) {
 		$query= $this->db->where("topics.topic_cat", $id)
-				->select("topics.topic_subject,topics.topic_id")->get("topics");
+				->select("topics.topic_subject,topics.topic_id")->order_by('topics.topic_subject','asc')->get("topics");
 		if($query->num_rows() > 0) return $query->result();
 		return false; }
+	//used
+	public function get_categories($type) {
+		$this->db->where('categories.cat_navi',$type)
+			->select('categories.cat_id, categories.cat_name, images.img_name')
+			->from('categories')
+			->join('images','images.img_cat=categories.cat_id')
+			->order_by('categories.cat_id','asc');
+		return $this->db->get()->result();
+	}
 }

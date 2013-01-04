@@ -1,5 +1,4 @@
 <script>
-	var timer;
 	<?php if($this->session->userdata('user_id')==1): ?>
 	var section_id='#adm-content';
 	var url_content = 'adminpage';
@@ -11,32 +10,6 @@
 	var navi_content = '#member-navi';
 	var list_content =  'daftar-konten-member';
 	<?php endif; ?>
-	var is_dialog_opened = false;
-
-	function closeDialog(d) {
-		$(".profil-content").fadeOut('slow');
-		$(".info").html('');
-		if(is_dialog_opened){
-			$("#form-profil").hide();
-			$("#form-akun").hide();
-			$(d).dialog('close');
-			is_dialog_opened = false;
-		} }
-	function dialogForm(f1,f2) {
-		$(".error-message").html('').hide();
-		$(f1).show();
-		$(f2).hide();
-		$("#dialog-form").dialog();
-		is_dialog_opened = true; }
-	function goToContent(page , content) {
-		$.get(
-			"index.php/"+url_content,
-			{ page:page, content:content  },
-			function(data) {
-				$(".profil-content").html(data).fadeIn('slow');
-			}
-		); }
-
 	$(document).ready(function() {
 		$("title").html("<?php echo $general['title']; ?>");
 		$(".profil-content").hide();
@@ -56,15 +29,10 @@
 					$("#my-name").html(profile.name);
 				} });
 
-		$(".profil-n:contains('buat resep baru')").click(function(){ naviProfil('10',''); });
-		$(".profil-n:contains('artikel')").click(function(){ naviProfil('9','resep'); });
-		<?php if($this->session->userdata('user_id') ==1 && $this->session->userdata('is_logged_in')): ?>
-		$(".profil-n:contains('user')").click(function(){ naviProfil('9','member'); });
-		<?php endif; ?>
-		$(".profil-n:contains('profil')").click(function(){ dialogForm("#form-profil","#form-akun"); });
-		$(".profil-n:contains('akun')").click(function(){ dialogForm("#form-akun","#form-profil"); });
+		$(".profil-n:contains('profil')").click(function(){ dialogForm("#form-profil","#form-akun","Profil"); });
+		$(".profil-n:contains('akun')").click(function(){ dialogForm("#form-akun","#form-profil", "Akun"); });
 
-		$(".profil-accord").click(function(){ $(".profil-content").html(''); closeDialog("#dialog-form"); });
+		$(".profil-accord").click(function(){ $(".profil-content").html(''); $(".profil-content").fadeOut('slow');$(".info").html(''); });
 		$("#profil-gambar").live('change', function(){ $("#profil-submit").removeAttr('disabled'); });
 		$("#profil-submit").click(function(){ updateUser("#form-profil"); });
 		$("#akun-submit").click(function(){ updateUser("#form-akun"); });	
@@ -88,8 +56,8 @@
 							}, 3000);
 						}
 					}
-			}).submit(); }
-		function naviProfil(c,t) { $(".profil-content").fadeIn('slow'); goToContent(c,t); } });</script>
+			}).submit(); } });
+</script>
 <?php $this->load->view('pages/basic'); ?>
 <section id="profil-wrapper">
 	<section id="kolom-profil">
@@ -103,14 +71,14 @@
 	<ul class="profil-navi"  id="aldm-navi">
 		<li><a href="#" class="profil-accord">Konten</a>
 			<ul>
-				<li><a class="profil-n">buat resep baru</a></li>
+				<li><a class="profil-n" onclick="naviProfil('10','')" >buat resep baru</a></li>
 			</ul>
 		</li>
 		<li><a href="#" class="profil-accord">Pengelolaan</a>
 			<ul>
-				<li><a class="profil-n">artikel</a><li>
+				<li><a class="profil-n" onclick="naviProfil('9','resep')">artikel</a><li>
 			<?php if($this->session->userdata('user_id') ==1 && $this->session->userdata('is_logged_in')): ?>
-				<li><a class="profil-n">user</a><li>
+				<li><a class="profil-n" onclick="naviProfil('9','member')">user</a><li>
 			<?php endif; ?>
 			</ul>
 		</li>
@@ -121,7 +89,7 @@
 			</ul>
 		</li>
 	</ul>
-	<section class="profil-content" id="adlm-content"></section>
+	<section class="profil-content"></section>
 	<section class="info"></section>
 	<section id="dialog-form" hidden="hidden">
 		<section class="info-prof-akun"></section>
@@ -154,3 +122,6 @@
 			</p>
 		<?php echo form_close(); ?>
 	</section> </section>
+	<script type="text/javascript">
+		function naviProfil(c,t) { $(".profil-content").fadeIn('slow'); goToContent(c,t); }</script>
+	<script language="javascript" src="<?php echo base_url(); ?>js/profile.js"></script>

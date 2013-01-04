@@ -51,7 +51,7 @@ class Membership extends CI_Model {
 		return false; }
 	//used
 	public function set_default_photo($user_id) {
-		$data = array( 'img_name' => 'no-image.jpg', 'img_by' => $user_id );
+		$data = array( 'img_name' => 'no-image.png', 'img_by' => $user_id );
 		$this->db->insert('images', $data); }
 	//used
 	public function cek_username($username) {
