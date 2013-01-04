@@ -1,5 +1,6 @@
 var topic_id;
 var topic = 0;
+var timer;
 function loadPage(page) {
 	$.ajax({
 		type: "GET",

@@ -1,5 +1,4 @@
 <script>
-	var timer;
 	$(document).ready(function(){
 		setSmiley();
 		$("#resep-submit").click(function(){
