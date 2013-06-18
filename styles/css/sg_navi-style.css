@@ -1,0 +1,170 @@
+#menu{
+    position:absolute;
+    abackground:blue;
+    right:-20px;
+}
+.main-nav{
+    background:#398A00;
+    position:relative;
+    display:block;
+    height:30px;
+    apadding-left:10px;
+    
+    -webkit-border-radius:15px 2px 2px 15px;
+    -moz-border-radius:15px 2px 2px 15px;
+    border-radius:15px 2px 2px 15px;
+    
+    padding:5px 2px 2px 5px;
+    
+    -webkit-box-shadow: -1px 1px 1px rgba(0,0,0,.6);
+    -moz-box-shadow: -1px 1px 1px rgba(0,0,0,.6);
+    box-shadow: -1px 1px 1px rgba(0,0,0,.7);
+    
+    margin-bottom:1px;
+    color:#fff;
+    width:170px;
+    
+}
+    .main-nav img{
+        height:30px;
+        -webkit-transform: scale(.5);
+        -moz-transform: scale(.5);
+        transform: scale(.5);
+        abackground:#C0DD60;
+        aborder-radius:15px;
+    }
+    .main-nav span{
+        position:absolute;
+        bottom:10px;
+        left:50px;
+        font-family:SansationRegular;
+        font-size:1.1em;
+        letter-spacing:1px;
+    }
+    .main-nav:hover{
+        color:#398A00;
+        background:#C0DD60;
+        
+        -webkit-transform:translateX(-10px);
+        -moz-transform:translateX(-10px);
+        transform:translateX(-10px);
+    }
+    .main-nav:hover img{
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        transform: scale(1);
+    }
+        #dropdown{
+            display:none;
+        }
+        #dropdown a{
+            -webkit-border-radius:0;
+            -moz-border-radius:0;
+            border-radius:0;
+            width:156px;
+            margin-left:20px;
+            background:#C0DD60;
+        }
+        #dropdown a:hover{
+            background: #FAF799
+        }
+        #adropdown li:last-child a{
+            -webkit-border-radius:0px 0px 5px 5px;
+            -moz-border-radius:0px 0px 5px 5px;
+            border-radius:0px 0px 5px 5px;
+        }
+/*#navi{
+    margin:0;
+    padding:0;
+    background:yllow;
+}
+    #menu{
+        background:oarange;
+        margin:0;
+        padding:0;
+        overflow:none;
+    }
+    #menu li{
+        background:garey;
+        heaight:65px;
+        awidth:200px;
+        displa;
+        float:lefta;
+        bordaer-bottom:solid 1px black;
+        borader-radius:0 0 10px 10px;
+        paddaing:5px;
+        z-index:1;
+    }
+    
+    #menu li:first-child{
+        
+    }
+    .main-nav{
+        margain:0;
+        paddaing:0;
+        background:#eee;
+        position:relative;
+        display:block;
+        height:30px;
+        padding-left:10px;
+        -webkit-border-radius:2px 2px 2px 2px;
+        -moz-border-radius:2px 2px 2px 2px;
+        border-radius:2px 2px 2px 2px;
+        padding:2px;
+        -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.5);
+        -moz-box-shadow: 1px 1px 1px rgba(0,0,0,.5);
+        box-shadow: 1px 1px 1px rgba(0,0,0,.5);
+        margin-bottom:1px;
+        color:#FFB12D;
+        waidth:230px;
+    }
+    .submenu {
+        
+    }
+    .main-nav img{
+        height:30px;
+        -webkit-transform: scale(.5);
+        -moz-transform: scale(.5);
+        transform: scale(.5);
+    }
+    .main-nav span{
+        position:absolute;
+        bottom:5px;
+        left:100px;
+        font-family:SansationBold;
+        font-size:1.1em;
+        letter-spacing:1px;
+    }
+    .main-nav:hover{
+        color:#fff;
+        background:#ffb12d;
+        baorder-radius:0;
+        a-webkit-transform:translateX(20px);
+    }
+    .main-nav:hover img{
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        transform: scale(1);
+    }
+    .main-nav:hover span{
+        font-size:1.3em;
+    }
+    #dropdown{
+        background:balue;
+        padding:0;
+        display:none;
+    }
+    #dropdown a{
+        -webkit-border-radius:0;
+        -moz-border-radius:0;
+        border-radius:0;
+        width:225px;
+        aheight:50px;
+        abackground:#fff;
+        margin-left:20px;
+    }
+    #dropdown li:last-child a{
+        -webkit-border-radius:0px 0px 5px 5px;
+        -moz-border-radius:0px 0px 5px 5px;
+        border-radius:0px 0px 5px 5px;
+    }

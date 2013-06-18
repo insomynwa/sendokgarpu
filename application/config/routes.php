@@ -28,5 +28,7 @@ $route['registrasi'] = 'registrasi_c/validation';
 $route['login'] = 'login/validation';
 $route['logout'] = 'logout';
 
+$route['chkses'] = 'site/check_session';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

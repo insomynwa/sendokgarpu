@@ -16,6 +16,16 @@ class Resep_model extends CI_Model{
 			$q2['penulis'] = $user['user_name'];
 			return $q2; }
 		return false; }
+	public function get_headline(){
+		$query = $this->db->limit(1)
+			->order_by("topics.topic_date", "desc")
+			->select("topics.*,images.img_name")
+			->from("topics")
+			->join("images","images.img_topic=topics.topic_id")->get();
+		if($query->num_rows() > 0){
+			return $query->row();
+		}
+	}
 	//used
 	private function _get_user_by($id) {
 		$this->db ->select('user.user_name')->where('user.user_id',$id);

@@ -31,9 +31,12 @@ class Post_c extends CI_Controller{
 
 	public function add_post() {
 		if(! $this->_permited ) redirect(base_url());
-		$topic = mysql_real_escape_string($_POST['topic']);
-		$user = mysql_real_escape_string($_POST['user']);
-		$comment = mysql_real_escape_string($_POST['comment']);
+		//$topic = mysql_real_escape_string($_POST['topic']);
+		//$user = mysql_real_escape_string($_POST['user']);
+		//$comment = mysql_real_escape_string($_POST['comment']);
+		$topic = $_POST['topic'];
+		$user = $_POST['user'];
+		$comment = $_POST['comment'];
 		if($topic=='' || $user=='' || $comment=='') {
 			$output = array('status'=>false,'msg'=>'lengkapi field yang tersedia.'); }
 		else {
@@ -44,10 +47,14 @@ class Post_c extends CI_Controller{
 		echo json_encode($output); }
 
 	public function add_message() {
-		$nama = mysql_real_escape_string($_POST['nama']);
-		$email = mysql_real_escape_string($_POST['email']);
-		$subjek = mysql_real_escape_string($_POST['subjek']);
-		$pesan = mysql_real_escape_string($_POST['pesan']);
+		//$nama = mysql_real_escape_string($_POST['nama']);
+		//$email = mysql_real_escape_string($_POST['email']);
+		//$subjek = mysql_real_escape_string($_POST['subjek']);
+		//$pesan = mysql_real_escape_string($_POST['pesan']);
+		$nama = $_POST['nama'];
+		$email = $_POST['email'];
+		$subjek = $_POST['subjek'];
+		$pesan = $_POST['pesan'];
 		if($nama=="" || $email=="" || $subjek=="" || $pesan=="") {
 			$output = array('status'=>false,'msg'=>'lengkapi field yang tersedia.'); }
 		else {
@@ -60,7 +67,8 @@ class Post_c extends CI_Controller{
 	public function delete_post() {
 		if(! $this->_permited ) redirect(base_url());
 		if($_POST['komentar']) {
-			$post_id = mysql_real_escape_string($_POST['komentar']);
+			//$post_id = mysql_real_escape_string($_POST['komentar']);
+			$post_id = $_POST['komentar'];
 			$this->post_model->delete_comment($post_id); }  }
 
 	private function _verifikasi() {

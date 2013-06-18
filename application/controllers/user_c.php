@@ -37,9 +37,12 @@ class User_c extends CI_Controller {
 		$user_id = $this->session->userdata('user_id');
 		$user_name = $this->session->userdata('username');
 		if(isset($_POST['akun-old-pass']) && isset($_POST['akun-new-pass']) && isset($_POST['akun-new-pass2'])) {
-			$o_pass = mysql_real_escape_string($_POST['akun-old-pass']);
-			$n_pass = mysql_real_escape_string($_POST['akun-new-pass']);
-			$n2_pass = mysql_real_escape_string($_POST['akun-new-pass2']);
+			//$o_pass = mysql_real_escape_string($_POST['akun-old-pass']);
+			//$n_pass = mysql_real_escape_string($_POST['akun-new-pass']);
+			//$n2_pass = mysql_real_escape_string($_POST['akun-new-pass2']);
+			$o_pass = $_POST['akun-old-pass'];
+			$n_pass = $_POST['akun-new-pass'];
+			$n2_pass = $_POST['akun-new-pass2'];
 			if($o_pass == '' || $n_pass == '' || $n2_pass == '') {
 				$output = array('status' => false, 'msg' => 'lengkapi field'); }
 			else {
@@ -71,7 +74,8 @@ class User_c extends CI_Controller {
 			$status = array('status'=> true, 'msg' => 'sukses', 'file'=> $data['file_name']); } return $status; }
 
 	public function delete_user() {
-		if($_POST['member']) { $member_id = mysql_real_escape_string($_POST['member']);
+		//if($_POST['member']) { $member_id = mysql_real_escape_string($_POST['member']);
+		if($_POST['member']) { $member_id = $_POST['member'];
 			$this->membership->delete_user($member_id); } }
 
 	private function _set_content($page, $page_id) {

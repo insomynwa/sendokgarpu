@@ -4,8 +4,10 @@ class Login extends CI_Controller {
 	public function __construct() { parent::__construct(); }
 
 	public function validation() {
-		$username = mysql_real_escape_string($_POST['username']);
-		$password = mysql_real_escape_string($_POST['password']);
+		//$username = mysql_real_escape_string($_POST['username']);
+		//$password = mysql_real_escape_string($_POST['password']);
+		$username = $_POST['username'];
+		$password = $_POST['password'];
 		$this->load->model('membership');
 		if($username=="" || $password=="") { $message = "Lengkapi field yang tersedia."; }
 		else {

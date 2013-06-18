@@ -1,6 +1,7 @@
 var topic_id;
 var topic = 0;
 var timer;
+
 function loadPage(page) {
 	$.ajax({
 		type: "GET",
@@ -11,7 +12,8 @@ function loadPage(page) {
 			function(data) {
 				$("#main-content").html(data);
 			}
-	}); }
+	});
+}
 
 function goToArticle(kategori_id, t){
 	loadPage(kategori_id);

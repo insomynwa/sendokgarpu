@@ -4,10 +4,14 @@ class Registrasi_c extends CI_Controller {
 	public function __construct() { parent::__construct(); }
 
 	public function validation() {
-		$username = mysql_real_escape_string($_POST['username']);
-		$email = mysql_real_escape_string($_POST['email']);
-		$pass1 = mysql_real_escape_string($_POST['password']);
-		$pass2 = mysql_real_escape_string($_POST['password2']);
+		//$username = mysql_real_escape_string($_POST['username']);
+		//$email = mysql_real_escape_string($_POST['email']);
+		//$pass1 = mysql_real_escape_string($_POST['password']);
+		//$pass2 = mysql_real_escape_string($_POST['password2']);
+		$username = $_POST['username'];
+		$email = $_POST['email'];
+		$pass1 = $_POST['password'];
+		$pass2 = $_POST['password2'];
 		if($username==""||$email==""||$pass1==""||$pass2=="") { $output = "lengkapi field yang tersedia."; }
 		else {
 			if(strlen($username)<8 || strlen($pass1)<8 || strlen($email)<8){

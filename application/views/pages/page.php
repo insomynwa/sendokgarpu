@@ -5,19 +5,43 @@
 	<script>
 		$(document).ready(function() {
 			$("a").css("cursor","pointer");
-			<?php if($this->session->userdata('is_logged_in')): ?>
+			$("li:has(ul)").click(function(){
+				$("#dropdown").slideToggle("slow");
+			});
+			$("li:not(:has(ul))").click(function(){
+				$("#dropdown").slideUp("slow");
+			});
+			$("#vid-area a").click(function(){
+				$("#vid-area").toggleClass("vid-translate");
+			});
+		<?php if($this->session->userdata('is_logged_in')): ?>
 			loadPage('8');
-			<?php endif ?>
+		<?php endif ?>
+			$(".main-nav").click(function(){
+				var snd = document.getElementById("clicked");
+				snd.play();
+			});
 		});
 	</script>
 </head>
 <body>
+	<div id="vid-area">
+		<a>video</a>
+		<video id="sg-vid" controls>
+			<source src="<?php echo base_url().'public/videos/' ?>sg_vid.mp4" type="video/mp4" />
+		</video>
+	</div>
+	<audio id="clicked">
+		<source src="<?php echo base_url().'public/sounds/' ?>clicked.mp3" type="audio/mp3">
+		<source src="<?php echo base_url().'public/sounds/' ?>clicked.ogg" type="audio/ogg">
+		Your browser does not support the audio element.
+	</audio>
 	<div id="wrapper">
 		<header id="header">
+			<section id="banner"><img class="news-img" src="<?php echo base_url().'images/pages/logo.png' ?>" /></section>
 			<nav id="navi">
 				<?php $this->load->view('templates/navi') ?>
 			</nav>
-			<section id="banner"><img class="news-img" src="<?php echo base_url().'images/pages/logo.png' ?>" /></section>
 		</header>
 		<section id="content">
 			<article id="main-content">
@@ -29,6 +53,11 @@
 			<?php $this->load->view('templates/footer'); ?>
 		</div>
 	</div>
+	<audio id="backsound" controls  loop>
+		<source src="<?php echo base_url().'public/sounds/' ?>beranda_snd.ogg" type="audio/ogg">
+		Your browser does not support the audio element.
+	</audio>
+	
 	<script type="text/javascript">
 		function loadComment() {
 			$.get(
@@ -93,5 +122,23 @@
 	</script>
 	<?php echo smiley_js(); ?>
 	<script language="javascript" src="<?php echo base_url(); ?>js/sendokgarpu.js"></script>
+	<script type="text/javascript">
+		
+		setInterval(
+			function(){
+				$.ajax({
+					type: "GET",
+					url: "index.php/chkses",
+					cache: false,
+					success:
+						function(data){
+							if((data==false && $("#logout").length>0) || (data==true && $("#logout").length<1))
+								window.location.reload();
+						}
+				});
+				
+				},5000);
+	</script>
+	
 </body>
 </html>

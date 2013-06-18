@@ -28,7 +28,7 @@
 							else { $("#k-conf").html("<p>"+kontak.msg+"</p>"); $("#k-form").remove();
 							} } }); return false; }); }); </script>
 <?php $this->load->view('pages/basic'); ?>
-<p><?php echo $general['description'] ?></p>
+<p><?php //echo $general['description'] ?></p>
 <section id="k-conf"></section>
 <form id='k-form' method='post'>
 	<section class="error-message" hidden="hidden"></section>

@@ -32,6 +32,7 @@ class Site extends CI_Controller {
 		switch ($page_name) {
 			case 'beranda':
 				$this->load->model('resep_model');
+				$content['headline'] = $this->resep_model->get_headline();
 				$content['news_minuman'] = $this->resep_model->get_news_resep(2);
 				$content['news_masakan'] = $this->resep_model->get_news_resep(1); break;
 			case 'resep': break;
@@ -51,12 +52,20 @@ class Site extends CI_Controller {
 		return $content; }
 	//used
 	private function _get_navi($t){
-		$n = $this->site_model->get_categories($t);
+		$n = $this->site_model->get_categories($t); #get category id&name&image
 		foreach ($n as $n2) {
 			$navi['sg'][] = '<a class="main-nav" onclick="loadPage(\''.$n2->cat_id.'\')">
 				<img src="'.base_url().'styles/images/'.$n2->img_name.'">
 				<span>'.$n2->cat_name.'</span></a>';
 		}
 		return $navi;
+	}
+	public function check_session(){
+		$ses=false;
+		if($this->session->userdata('is_logged_in'))
+			$ses=true;
+		else
+			$ses=false;
+		echo $ses;
 	}
 }

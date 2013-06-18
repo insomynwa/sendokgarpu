@@ -29,12 +29,18 @@ class Resep_c extends CI_Controller {
 			|| $_POST['bahan']=='' || $_POST['cara']=='' || $_POST['sumber']=='') {
 			$message = array('status' => false, 'msg' => 'field harus diisi semua'); }
 		else {
-			$judul = mysql_real_escape_string($_POST['judul']);
-			$kategori = mysql_real_escape_string($_POST['kategori']);
-			$deskripsi = mysql_real_escape_string($_POST['deskripsi']);
-			$bahan = mysql_real_escape_string($_POST['bahan']);
-			$cara = mysql_real_escape_string($_POST['cara']);
-			$sumber = mysql_real_escape_string($_POST['sumber']);
+			//$judul = mysql_real_escape_string($_POST['judul']);
+			//$kategori = mysql_real_escape_string($_POST['kategori']);
+			//$deskripsi = mysql_real_escape_string($_POST['deskripsi']);
+			//$bahan = mysql_real_escape_string($_POST['bahan']);
+			//$cara = mysql_real_escape_string($_POST['cara']);
+			//$sumber = mysql_real_escape_string($_POST['sumber']);
+			$judul = $_POST['judul'];
+			$kategori = $_POST['kategori'];
+			$deskripsi = $_POST['deskripsi'];
+			$bahan = $_POST['bahan'];
+			$cara = $_POST['cara'];
+			$sumber = $_POST['sumber'];
 			$data['judul'] = $judul;
 			$data['kategori'] = $kategori;
 			$data['deskripsi'] = $deskripsi;
@@ -46,7 +52,8 @@ class Resep_c extends CI_Controller {
 				$data['penulis'] = $this->session->userdata('user_id');
 				$data['tipe'] = 'create'; }
 			if($_POST['type']=='update-resep') {
-				$data['resep_id'] = mysql_real_escape_string($_POST['id']);
+				//$data['resep_id'] = mysql_real_escape_string($_POST['id']);
+				$data['resep_id'] = $_POST['id'];
 				$image = $this->resep_model->get_image_by($data['resep_id']);
 				$data['gambar'] = $image['img_name'];
 				$data['tipe'] = 'update'; }
@@ -72,7 +79,8 @@ class Resep_c extends CI_Controller {
 	public function delete_resep() {
 		if(! $this->_permited ) redirect(base_url());
 		if($_POST['resep']) {
-			$resep_id = mysql_real_escape_string($_POST['resep']);
+			//$resep_id = mysql_real_escape_string($_POST['resep']);
+			$resep_id = $_POST['resep'];
 			$this->resep_model->delete_resep($resep_id); } }
 
 	private function _verifikasi() {

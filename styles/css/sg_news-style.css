@@ -1,0 +1,140 @@
+#news {
+    width:780px;
+    abackground:grey;
+    height:190px;
+    
+    -webkit-border-bottom-left-radius:100px 200px;
+    -webkit-border-bottom-right-radius:100px 200px;
+    -moz-border-bottom-left-radius:100px 200px;
+    -moz-border-bottom-right-radius:100px 200px;
+    border-bottom-left-radius:100px 200px;
+    border-bottom-right-radius:100px 200px;
+    
+}
+.news-col{
+    
+}
+.news-col h3{
+    background:#C0DD60;
+    padding:6px;
+    color:#333;
+    
+    -webkit-border-radius:5px 5px 0px 0px;
+    -moz-border-radius:5px 5px 0px 0px;
+    border-radius:5px 5px 0px 0px;
+}
+.news-col ul{
+    list-style:none;
+    padding-top:10px;
+    position:relative;
+}
+#news-resep-masakan.news-col ul{
+    padding-right:180px;
+}
+#news-resep-minuman.news-col ul{
+    padding-left:180px;
+}
+
+#news-resep-masakan,#news-resep-minuman{
+    width: 385px;
+    height:190px;
+    background:#FAF799;
+    text-align:center;
+    
+    -webkit-border-top-left-radius:10px;
+    -moz-border-top-left-radius:10px;
+    border-top-left-radius:10px;
+    
+    -webkit-border-top-right-radius:10px;
+    -moz-border-top-right-radius:10px;
+    border-top-right-radius:10px;
+}
+#news-resep-masakan{
+    float:left;
+    margin-right:5px;
+    text-align:right;
+    
+    -webkit-border-bottom-left-radius:100px 200px;
+    -moz-border-bottom-left-radius:100px 200px;
+    border-bottom-left-radius:100px 200px;
+    
+    -webkit-border-bottom-right-radius:5px;
+    -moz-border-bottom-right-radius:5px;
+    border-bottom-right-radius:5px;
+    
+    aposition:relative;
+}
+#news-resep-minuman{
+    float:right;
+    margin-left:5px;
+    text-align:left;
+    
+    
+    -webkit-border-bottom-right-radius:100px 200px;
+    -moz-border-bottom-right-radius:100px 200px;
+    border-bottom-right-radius:100px 200px;
+    
+    -webkit-border-bottom-left-radius:5px;
+    -moz-border-bottom-left-radius:5px;
+    border-bottom-leftt-radius:5px;
+}
+
+.news-img{
+    width:162px;
+}
+
+#news-resep-minuman .news-img{
+    float:left;
+    
+    -webkit-border-bottom-left-radius:5px;
+    -moz-border-bottom-left-radius:5px;
+    border-bottom-leftt-radius:5px;
+}
+#news-resep-masakan .news-img{
+    float:right;
+    
+    -webkit-border-bottom-right-radius:5px;
+    -moz-border-bottom-right-radius:5px;
+    border-bottom-right-radius:5px;
+}
+
+#news-resep-masakan .fullread{
+    position:absolute;
+    bottom:-40px;
+    right:140px;
+}
+#news-resep-minuman .fullread{
+    position:absolute;
+    bottom:-40px;
+    left: 179px;
+}
+
+.news-topic{
+    font-family:SansationRegular;
+    
+}
+
+#slideshow1,#slideshow2 { 
+    amargin: 50px auto; 
+    position: relative;
+    padding:0; 
+    awidth: 200px; 
+    aheight: 200px; 
+    apadding: 10px; 
+    a-webkit-box-shadow: 0 0 20px rgba(0,0,0,0.4); 
+    a-moz-box-shadow: 0 0 20px rgba(0,0,0,0.4); 
+    abox-shadow: 0 0 20px rgba(0,0,0,0.4); 
+    afloat:right;
+    adisplay:none;
+}
+
+#slideshow1 > article,#slideshow2 > article { 
+    position: absolute; 
+    atop: 10px; 
+    aleft: 10px; 
+    aright: 10px; 
+    abottom: 10px; 
+}
+#slideshow1 > article {
+    right:0;
+}
